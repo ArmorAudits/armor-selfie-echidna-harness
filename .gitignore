@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+
+# Editors/IDE
+.vscode/
+.idea/
+
+# Node / yarn (if present)
+node_modules/
+
+# Foundry / Forge
+out/
+cache/
+broadcast/
+
+# Echidna / Slither / Crytic temp
+crytic-export/
+echidna_results/
+*.log
+
+# Backups & temp
+*.bak
+*.tmp
+# Generated blobs
+*.bin
+*.pkl
+mcore_selfie/
+crytic-export/
+echidna_results/
+# Generated blobs
+*.bin
+*.pkl
+mcore_selfie/
+crytic-export/
+echidna_results/
