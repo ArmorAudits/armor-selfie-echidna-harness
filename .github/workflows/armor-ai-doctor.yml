@@ -52,7 +52,7 @@ jobs:
           fi
 
       - name: Ensure 'security' label exists
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const name = 'security';
@@ -67,7 +67,7 @@ jobs:
 
       - name: Create/Update issue for quarantined tools
         if: ${{ steps.quarantine.outputs.has_quarantine == 'true' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
