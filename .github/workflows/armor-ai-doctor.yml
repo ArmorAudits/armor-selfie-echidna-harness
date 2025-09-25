@@ -9,52 +9,25 @@ on:
       - ".github/workflows/armor-ai-doctor.yml"
 
 jobs:
-  doctor:
+  smoke:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    env:
-      GITHUB_TOKEN: ${{ github.token }}
-
     steps:
       - uses: actions/checkout@v4
 
-      - name: Debug repo state
-        run: |
-          set -x
-          pwd
-          ls -la
-          ls -la monitor || true
-          head -n 5 monitor/tools.csv || true
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install deps
-        run: |
-          set -euxo pipefail
-          python -m pip install --upgrade pip
-          pip install -r monitor/requirements.txt
-
-      - name: Run Armor AI Doctor
-        continue-on-error: true
+      - name: Prove logs & artifacts work
         run: |
           set -euxo pipefail
           mkdir -p artifacts
-          python monitor/doctor.py --inventory monitor/tools.csv
-          echo "--- alerts.md (first 120 lines) ---"
-          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md || echo "alerts.md missing"
-
-      - name: Pack workspace for debugging (only if failure)
-        if: ${{ failure() }}
-        run: |
-          tar -czf artifacts/workspace.tgz .
+          echo "hello from the runner $(date -u)" | tee artifacts/hello.txt
+          echo "repo root contents:"; ls -la
+          echo "monitor dir:"; ls -la monitor || true
 
       - name: Upload artifacts
-        if: always()
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: tool-monitor-report
+          name: smoke-artifacts
           path: artifacts/
-          if-no-files-found: warn
+          if-no-files-found: error
