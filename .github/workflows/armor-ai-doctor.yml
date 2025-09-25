@@ -37,22 +37,22 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r monitor/requirements.txt
 
-      - name: Run Armor AI Doctor
-        id: doctor
+      - name: Run Armor AI Doctor (self-logged)
         run: |
           set -euxo pipefail
           mkdir -p artifacts
-          python monitor/doctor.py --inventory monitor/tools.csv || echo "::warning::doctor.py returned non-zero"
-          echo "--- alerts.md (first 120 lines) ---"
-          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md || echo "alerts.md missing"
+          {
+            echo "=== $(date -u) start ==="
+            python -V
+            python monitor/doctor.py --inventory monitor/tools.csv
+            echo "=== $(date -u) end ==="
+          } 2>&1 | tee artifacts/doctor.log
+          echo "--- alerts.md (first 120) ---" | tee -a artifacts/doctor.log
+          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md | tee -a artifacts/doctor.log || echo "alerts.md missing" | tee -a artifacts/doctor.log
 
-      - name: Pack workspace (failure only)
-        if: ${{ failure() }}
-        run: tar -czf artifacts/workspace.tgz .
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload artifacts (always)
         if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: tool-monitor-report
           path: artifacts/
