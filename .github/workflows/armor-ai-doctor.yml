@@ -3,65 +3,47 @@ name: Armor AI Doctor (baseline)
 on:
   workflow_dispatch:
   push:
+    branches: [ main ]
     paths:
-      - 'monitor/**'
-      - '.github/workflows/armor-ai-doctor.yml'
-  schedule:
-    - cron: '17 9 * * 1'  # Mondays 09:17 UTC
-
-permissions:
-  contents: read
+      - "monitor/**"
+      - ".github/workflows/armor-ai-doctor.yml"
 
 jobs:
   doctor:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # Print debug context to catch path problems and stray text
-      - name: Debug repo layout
+      - name: Show repo state (debug)
         run: |
-          set -x
           pwd
-          git rev-parse --short HEAD
           ls -la
-          echo "--- monitor ---"
-          find monitor -maxdepth 2 -type f -print || true
-          echo "--- workflow head/tail ---"
-          sed -n '1,60p' .github/workflows/armor-ai-doctor.yml || true
-          echo "-----"
-          tail -n 40 .github/workflows/armor-ai-doctor.yml || true
+          ls -la monitor || true
+          test -f monitor/tools.csv && head -n 5 monitor/tools.csv || true
+          python --version
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Install Python deps
+      - name: Install deps
         run: |
           python -m pip install --upgrade pip
-          if [ -f monitor/requirements.txt ]; then
-            pip install -r monitor/requirements.txt
-          else
-            pip install requests PyYAML packaging semver
-          fi
+          pip install -r monitor/requirements.txt
 
       - name: Run Armor AI Doctor
-        id: doctor
         run: |
           mkdir -p artifacts
           python monitor/doctor.py --inventory monitor/tools.csv
-        continue-on-error: true
-
-      - name: Show artifacts (if any)
-        if: always()
-        run: |
-          ls -l artifacts || true
-          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md || true
 
       - name: Upload artifacts
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tool-monitor-report
-          path: artifacts/*
-          if-no-files-found: warn
+          path: artifacts/
+          if-no-files-found: error
