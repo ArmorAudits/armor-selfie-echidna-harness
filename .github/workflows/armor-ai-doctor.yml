@@ -39,7 +39,7 @@ jobs:
         uses: google/osv-scanner-action@v1
 
       - name: Install Trivy
-        uses: aquasecurity/setup-trivy@v0.2.2
+        uses: aquasecurity/setup-trivy@v0.2.4
 
       - name: Install Syft (SBOM)
         uses: anchore/sbom-action/download-syft@v0.17.7
