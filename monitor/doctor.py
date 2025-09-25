@@ -11,7 +11,7 @@ POLICY_MIN_SEV = os.getenv("POLICY_MIN_SEVERITY_FOR_QUARANTINE", "HIGH").upper()
 SEV_ORDER = {"LOW":1,"MEDIUM":2,"HIGH":3,"CRITICAL":4}
 
 def now_iso() -> str:
-    return datetime.datetime.utcnow().replace(microsecond=0).isoformat()+"Z"
+    return datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()
 
 def read_inventory() -> List[Dict[str,Any]]:
     csv_path = ROOT / "monitor" / "tools.csv"
