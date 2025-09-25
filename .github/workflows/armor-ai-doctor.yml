@@ -14,12 +14,10 @@ jobs:
     permissions:
       contents: read
     env:
-      # Exposed to doctor.py for authenticated GitHub API calls (bypass 60/hr anon limit)
       GITHUB_TOKEN: ${{ github.token }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Debug repo state
         run: |
@@ -28,8 +26,7 @@ jobs:
           ls -la monitor || true
           head -n 5 monitor/tools.csv || true
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
