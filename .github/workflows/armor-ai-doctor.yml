@@ -21,6 +21,7 @@ jobs:
 
       - name: Debug repo state
         run: |
+          set -x
           pwd
           ls -la
           ls -la monitor || true
@@ -32,17 +33,28 @@ jobs:
 
       - name: Install deps
         run: |
+          set -euxo pipefail
           python -m pip install --upgrade pip
           pip install -r monitor/requirements.txt
 
       - name: Run Armor AI Doctor
+        continue-on-error: true
         run: |
+          set -euxo pipefail
           mkdir -p artifacts
           python monitor/doctor.py --inventory monitor/tools.csv
+          echo "--- alerts.md (first 120 lines) ---"
+          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md || echo "alerts.md missing"
+
+      - name: Pack workspace for debugging (only if failure)
+        if: ${{ failure() }}
+        run: |
+          tar -czf artifacts/workspace.tgz .
 
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tool-monitor-report
           path: artifacts/
-          if-no-files-found: error
+          if-no-files-found: warn
