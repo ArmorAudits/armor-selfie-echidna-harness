@@ -1,4 +1,4 @@
-name: Armor AI Doctor (baseline)
+name: Armor AI Doctor (zero-actions)
 
 on:
   workflow_dispatch:
@@ -14,46 +14,44 @@ jobs:
     permissions:
       contents: read
     env:
-      GITHUB_TOKEN: ${{ github.token }}
+      REPO: ${{ github.repository }}
+      SHA:  ${{ github.sha }}
+      GH_TOKEN: ${{ github.token }}
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Debug repo state
-        run: |
-          set -x
-          pwd
-          ls -la
-          ls -la monitor || true
-          head -n 5 monitor/tools.csv || true
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install deps
+      - name: Run Armor AI Doctor without external actions
         run: |
           set -euxo pipefail
-          python -m pip install --upgrade pip
-          pip install -r monitor/requirements.txt
+          mkdir -p monitor artifacts
 
-      - name: Run Armor AI Doctor (self-logged)
-        run: |
-          set -euxo pipefail
-          mkdir -p artifacts
+          # Fetch files directly from the repo (no actions/checkout)
+          for f in monitor/doctor.py monitor/tools.csv monitor/requirements.txt; do
+            curl -sS \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              -H "Accept: application/vnd.github.raw" \
+              -o "$f" \
+              "https://api.github.com/repos/$REPO/contents/$f?ref=$SHA"
+          done
+
+          python3 --version
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r monitor/requirements.txt
+
+          # Self-log to artifacts/doctor.log and Step Summary
           {
-            echo "=== $(date -u) start ==="
-            python -V
-            python monitor/doctor.py --inventory monitor/tools.csv
-            echo "=== $(date -u) end ==="
+            echo "=== $(date -u) Armor AI Doctor start ==="
+            python3 monitor/doctor.py --inventory monitor/tools.csv
+            echo "=== $(date -u) Armor AI Doctor end ==="
           } 2>&1 | tee artifacts/doctor.log
-          echo "--- alerts.md (first 120) ---" | tee -a artifacts/doctor.log
-          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md | tee -a artifacts/doctor.log || echo "alerts.md missing" | tee -a artifacts/doctor.log
 
-      - name: Upload artifacts (always)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: tool-monitor-report
-          path: artifacts/
-          if-no-files-found: warn
+          echo "## Armor AI Doctor — Summary" >> "$GITHUB_STEP_SUMMARY"
+          if [ -f artifacts/alerts.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,120p' artifacts/alerts.md | tee -a artifacts/doctor.log | sed -n '1,120p' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No alerts.md produced" | tee -a artifacts/doctor.log
+            echo "No alerts.md produced" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          # Pack workspace for manual download if needed (no upload-artifact)
+          tar -czf artifacts/workspace.tgz monitor artifacts || true
