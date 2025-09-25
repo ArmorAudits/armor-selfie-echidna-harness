@@ -42,7 +42,7 @@ jobs:
         uses: aquasecurity/setup-trivy@v0.2.2
 
       - name: Install Syft (SBOM)
-        uses: anchore/sbom-action/download-syft@v0.17.7
+        uses: anchore/sbom-action/download-syft@v0.20.6
 
       - name: Install cargo-audit (if Cargo.lock exists)
         if: ${{ hashFiles('**/Cargo.lock') != '' }}
