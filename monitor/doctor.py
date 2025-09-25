@@ -1,6 +1,6 @@
 import csv, json, os, sys, re, time, pathlib, datetime
 from typing import List, Dict, Any
-import requests, yaml
+import os, requests, yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ART = ROOT / "artifacts"
