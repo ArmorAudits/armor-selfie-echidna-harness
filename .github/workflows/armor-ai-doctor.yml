@@ -55,3 +55,20 @@ jobs:
 
           # Pack workspace for manual download if needed (no upload-artifact)
           tar -czf artifacts/workspace.tgz monitor artifacts || true
+
+      - name: Publish reports to branch (optional)
+        if: always()
+        env:
+          BR: doctor-artifacts
+        run: |
+          set -eux
+          git init .
+          git config user.email "bot@armor.ai"
+          git config user.name "Armor AI Doctor"
+          git checkout -b "$BR"
+          mkdir -p reports
+          cp -r artifacts/* reports/
+          git add reports
+          git commit -m "AI Doctor reports for $SHA"
+          git remote add origin "https://x-access-token:${GH_TOKEN}@github.com/${REPO}"
+          git push -f origin "$BR"
