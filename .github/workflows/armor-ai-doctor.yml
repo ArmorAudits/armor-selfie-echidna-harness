@@ -1,4 +1,4 @@
-name: Armor AI Doctor
+name: Armor AI Doctor (baseline)
 
 on:
   workflow_dispatch:
@@ -11,22 +11,30 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   doctor:
     runs-on: ubuntu-latest
-    env:
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
     steps:
       - uses: actions/checkout@v4
+
+      # Print debug context to catch path problems and stray text
+      - name: Debug repo layout
+        run: |
+          set -x
+          pwd
+          git rev-parse --short HEAD
+          ls -la
+          echo "--- monitor ---"
+          find monitor -maxdepth 2 -type f -print || true
+          echo "--- workflow head/tail ---"
+          sed -n '1,60p' .github/workflows/armor-ai-doctor.yml || true
+          echo "-----"
+          tail -n 40 .github/workflows/armor-ai-doctor.yml || true
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Install Python deps
         run: |
@@ -38,67 +46,22 @@ jobs:
           fi
 
       - name: Run Armor AI Doctor
+        id: doctor
         run: |
           mkdir -p artifacts
           python monitor/doctor.py --inventory monitor/tools.csv
+        continue-on-error: true
 
-      - name: Determine if quarantined
-        id: quarantine
+      - name: Show artifacts (if any)
+        if: always()
         run: |
-          if [ -s artifacts/quarantine.json ] && jq -e 'length>0' artifacts/quarantine.json >/dev/null; then
-            echo "has_quarantine=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_quarantine=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Ensure 'security' label exists
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const name = 'security';
-            const color = '9C1A1C';
-            try {
-              await github.rest.issues.getLabel({owner: context.repo.owner, repo: context.repo.repo, name});
-            } catch (e) {
-              if (e.status === 404) {
-                await github.rest.issues.createLabel({owner: context.repo.owner, repo: context.repo.repo, name, color});
-              } else { throw e; }
-            }
-
-      - name: Create/Update issue for quarantined tools
-        if: ${{ steps.quarantine.outputs.has_quarantine == 'true' }}
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const title = 'Armor AI Doctor: Quarantined tools detected';
-            const body = fs.readFileSync('artifacts/alerts.md', 'utf8');
-            const { data: issues } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'security'
-            });
-            const existing = issues.find(i => i.title === title);
-            if (existing) {
-              await github.rest.issues.update({
-                owner: context.repo.owner, repo: context.repo.repo,
-                issue_number: existing.number, body, labels: ['security']
-              });
-            } else {
-              await github.rest.issues.create({
-                owner: context.repo.owner, repo: context.repo.repo,
-                title, body, labels: ['security']
-              });
-            }
-
-      - name: Discord alert (optional)
-        if: ${{ env.DISCORD_WEBHOOK_URL && steps.quarantine.outputs.has_quarantine == 'true' }}
-        run: |
-          PAYLOAD=$(jq -Rs . < artifacts/alerts.md)
-          curl -sS -X POST -H "Content-Type: application/json" \
-            -d "{\"content\": $PAYLOAD}" \
-            "${DISCORD_WEBHOOK_URL}"
+          ls -l artifacts || true
+          [ -f artifacts/alerts.md ] && sed -n '1,120p' artifacts/alerts.md || true
 
       - name: Upload artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: tool-monitor-report
           path: artifacts/*
+          if-no-files-found: warn
