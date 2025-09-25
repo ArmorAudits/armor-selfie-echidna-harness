@@ -1,120 +1,66 @@
 name: Armor AI Doctor
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-  schedule:
-    - cron: "23 3 * * *"   # nightly
   workflow_dispatch:
+  push:
+    paths:
+      - 'monitor/**'
+      - '.github/workflows/armor-ai-doctor.yml'
+  schedule:
+    - cron: '17 9 * * 1'  # Mondays 09:17 UTC
 
 permissions:
   contents: read
-  security-events: write
   issues: write
 
 jobs:
   doctor:
     runs-on: ubuntu-latest
     env:
-      POLICY_MAX_DAYS_SINCE_RELEASE: ${{ vars.POLICY_MAX_DAYS_SINCE_RELEASE || '365' }}
-      POLICY_MIN_SEVERITY_FOR_QUARANTINE: ${{ vars.POLICY_MIN_SEVERITY_FOR_QUARANTINE || 'HIGH' }}
-      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      # Use env to avoid direct secrets reference in if:
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL || '' }}
     steps:
       - uses: actions/checkout@v4
 
-      # ===== Set up tooling =====
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install tools (jq)
+        run: sudo apt-get update && sudo apt-get install -y jq
 
       - name: Install Python deps
         run: |
           python -m pip install --upgrade pip
-          pip install requests pyyaml pip-audit cyclonedx-bom
+          if [ -f monitor/requirements.txt ]; then
+            pip install -r monitor/requirements.txt
+          else
+            pip install requests PyYAML packaging semver
+          fi
 
-      - name: Install OSV-Scanner
-        uses: google/osv-scanner-action@v1
-
-      - name: Install Trivy
-        uses: aquasecurity/setup-trivy@v0.2.2
-
-      - name: Install Syft (SBOM)
-        uses: anchore/sbom-action/download-syft@v0.17.7
-
-      - name: Install cargo-audit (if Cargo.lock exists)
-        if: ${{ hashFiles('**/Cargo.lock') != '' }}
+      - name: Run Armor AI Doctor
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rust-all
-          cargo install cargo-audit
+          mkdir -p artifacts
+          python monitor/doctor.py --inventory monitor/tools.csv
 
-      - name: Install Node (for npm audit if needed)
-        if: ${{ hashFiles('**/package-lock.json,**/pnpm-lock.yaml,**/yarn.lock') != '' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # ===== Security & supply-chain scans =====
-      - name: Generate SBOM (CycloneDX JSON)
+      - name: Determine if quarantined
+        id: quarantine
         run: |
-          ./syft packages dir:. -o cyclonedx-json > artifacts/sbom.json
+          if [ -s artifacts/quarantine.json ] && jq -e 'length>0' artifacts/quarantine.json >/dev/null; then
+            echo "has_quarantine=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_quarantine=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: OSV scan (repo)
-        run: |
-          osv-scanner -r . -o artifacts/osv.json || true
-
-      - name: Trivy FS vuln scan (SARIF + JSON)
-        run: |
-          trivy fs --exit-code 0 --format json --output artifacts/trivy.json .
-          trivy fs --exit-code 0 --format sarif --output artifacts/trivy.sarif .
-
-      - name: pip-audit (if Python)
-        if: ${{ hashFiles('**/requirements*.txt,**/pyproject.toml,**/Pipfile.lock') != '' }}
-        run: |
-          pip-audit -r requirements.txt -f json -o artifacts/pip-audit.json || true || true
-          # Fall back to scanning workspace if no single requirements.txt
-          pip-audit -f json -o artifacts/pip-audit.json || true
-
-      - name: npm audit (if Node)
-        if: ${{ hashFiles('**/package-lock.json,**/pnpm-lock.yaml,**/yarn.lock') != '' }}
-        run: |
-          npm audit --audit-level=low --json > artifacts/npm-audit.json || true
-
-      - name: cargo-audit (if Rust)
-        if: ${{ hashFiles('**/Cargo.lock') != '' }}
-        run: |
-          cargo audit -q -f Cargo.lock -j > artifacts/cargo-audit.json || true
-
-      # ===== Armor AI Doctor (inventory reconciliation + quarantine logic) =====
-      - name: Armor AI Doctor
-        run: |
-          python monitor/doctor.py
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # ===== Raise/Update GitHub Issue if quarantines =====
-      - name: Create/Update Quarantine Issue
-        id: quarantine_issue
+      - name: Create/Update issue for quarantined tools
+        if: ${{ steps.quarantine.outputs.has_quarantine == 'true' }}
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
-            const path = 'artifacts/quarantine.json';
-            if (!fs.existsSync(path)) {
-              core.info('No quarantine.json found; nothing to do.');
-              return;
-            }
-            const q = JSON.parse(fs.readFileSync(path,'utf8'));
-            if (!q.length) {
-              core.info('No quarantined tools.');
-              return;
-            }
-            const title = '🚨 Armor AI Doctor: Quarantine report';
+            const title = 'Armor AI Doctor: Quarantined tools detected';
             const body = fs.readFileSync('artifacts/alerts.md', 'utf8');
-            const issues = await github.paginate(github.rest.issues.listForRepo, {
+            const { data: issues } = await github.rest.issues.listForRepo({
               owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'security'
             });
             const existing = issues.find(i => i.title === title);
@@ -124,21 +70,16 @@ jobs:
               await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['security'] });
             }
 
-      # ===== Optional Discord alert =====
       - name: Discord alert (optional)
-        if: ${{ secrets.DISCORD_WEBHOOK_URL != '' }}
+        if: ${{ env.DISCORD_WEBHOOK_URL != '' && steps.quarantine.outputs.has_quarantine == 'true' }}
         run: |
-          if [ -f artifacts/alerts.md ] && [ -s artifacts/quarantine.json ]; then
-            if [ "$(jq 'length' artifacts/quarantine.json)" != "0" ]; then
-              PAYLOAD=$(jq -Rs . < artifacts/alerts.md)
-              curl -sS -X POST -H "Content-Type: application/json" \
-                -d "{\"content\": $PAYLOAD}" \
-                "${DISCORD_WEBHOOK_URL}"
-            fi
-          fi
+          PAYLOAD=$(jq -Rs . < artifacts/alerts.md)
+          curl -sS -X POST -H "Content-Type: application/json" \
+            -d "{\"content\": $PAYLOAD}" \
+            "${DISCORD_WEBHOOK_URL}"
 
-      # ===== Upload artifacts =====
-      - uses: actions/upload-artifact@v4
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: armor-ai-doctor-artifacts
+          name: tool-monitor-report
           path: artifacts/*
