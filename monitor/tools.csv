@@ -61,3 +61,17 @@ Sui Move,SDK,"Sui (Move)","Mysten Labs",Apache-2.0,https://github.com/MystenLabs
 sui-cli,CLI,"Sui (Move)","Mysten Labs",Apache-2.0,https://github.com/MystenLabs/sui,GitHub releases,"brew | binary","/usr/local/bin/sui",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
 LIGO,Compiler,Tezos,LIGO,MIT,https://gitlab.com/ligolang/ligo,GitLab releases,"brew | docker","/usr/local/bin/ligo",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
 SmartPy,Framework,Tezos,SmartPy,Apache-2.0,https://github.com/SmartPy/smartpy,GitHub releases,"docker | pip","/usr/local/bin/smartpy",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
+Semgrep,SAST,Agnostic,r2c,LGPL-2.1,https://github.com/returntocorp/semgrep,GitHub releases,"pipx | brew | binary","/usr/local/bin/semgrep",,,,,Planned,,Active,,,,Security,"Solidity + repo-wide SAST"
+OSV-Scanner,Dependency Audit,Agnostic,Google,Apache-2.0,https://github.com/google/osv-scanner,GitHub releases,"brew | binary","/usr/local/bin/osv-scanner",,,,,Planned,,Active,,,,Security,"Advisories across lockfiles"
+Syft,SBOM,Agnostic,Anchore,Apache-2.0,https://github.com/anchore/syft,GitHub releases,"brew | binary | docker","/usr/local/bin/syft",,,,,Planned,,Active,,,,Security,"SBOM generator (pairs w/ Grype)"
+Grype,Vulnerability Scan,Agnostic,Anchore,Apache-2.0,https://github.com/anchore/grype,GitHub releases,"brew | binary | docker","/usr/local/bin/grype",,,,,Planned,,Active,,,,Security,"SBOM/image vuln scan"
+hadolint,Docker Lint,Agnostic,Hadolint,GPL-3.0,https://github.com/hadolint/hadolint,GitHub releases,"brew | binary | docker","/usr/local/bin/hadolint",,,,,Planned,,Active,,,,DevEx,"Dockerfile best-practices"
+actionlint,CI Lint,Agnostic,rhysd,MIT,https://github.com/rhysd/actionlint,GitHub releases,"brew | binary","/usr/local/bin/actionlint",,,,,Planned,,Active,,,,DevEx,"Lint GitHub Actions yaml"
+truffleHog,Secrets Scan,Agnostic,TruffleHog,AGPL-3.0,https://github.com/trufflesecurity/trufflehog,GitHub releases,"brew | binary | docker","/usr/local/bin/trufflehog",,,,,Planned,,Active,,,,Security,"Secrets scanner (complements gitleaks)"
+Scribble,Runtime Verification,EVM,ConsenSys,Apache-2.0,https://github.com/ConsenSys/scribble,GitHub releases,"npm","/usr/local/bin/scribble",,,,,Planned,,Active,,,,Security,"Spec annotations → runtime checks"
+Surya,Contract Graphs,EVM,ConsenSys,MIT,https://github.com/ConsenSys/surya,GitHub releases,"npm","/usr/local/bin/surya",,,,,Planned,,Active,,,,DevEx,"CFG/Inheritance/Call graph"
+DappTools (hevm/seth/dapp),Toolchain,EVM,dapphub,GPL-3.0,https://github.com/dapphub/dapptools,GitHub releases,"nix | binary","/usr/local/bin/hevm",,,,,Planned,,Active,,,,Dev,"Symbolic exec (hevm), tx crafting"
+starknet-devnet,Localnet,Starknet,Shard-Labs,MIT,https://github.com/Shard-Labs/starknet-devnet,GitHub releases,"pipx | docker","/usr/local/bin/starknet-devnet",,,,,Planned,,Active,,,,Infra,"Fast local Starknet for tests"
+wasmd,Localnet,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/wasmd,GitHub releases,"binary | docker","/usr/local/bin/wasmd",,,,,Planned,,Active,,,,Infra,"CosmWasm local chain"
+cosmwasm/rust-optimizer,Build,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/rust-optimizer,GitHub releases,"docker","docker://cosmwasm/workspace-optimizer",,,,,Planned,,Active,,,,Build,"Reproducible Wasm builds"
+substrate-contracts-node,Localnet,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/paritytech/substrate-contracts-node,GitHub releases,"binary | docker","/usr/local/bin/substrate-contracts-node",,,,,Planned,,Active,,,,Infra,"ink! local chain"
