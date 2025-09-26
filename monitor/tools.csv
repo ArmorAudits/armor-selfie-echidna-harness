@@ -75,3 +75,33 @@ starknet-devnet,Localnet,Starknet,Shard-Labs,MIT,https://github.com/Shard-Labs/s
 wasmd,Localnet,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/wasmd,GitHub releases,"binary | docker","/usr/local/bin/wasmd",,,,,Planned,,Active,,,,Infra,"CosmWasm local chain"
 cosmwasm/rust-optimizer,Build,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/rust-optimizer,GitHub releases,"docker","docker://cosmwasm/workspace-optimizer",,,,,Planned,,Active,,,,Build,"Reproducible Wasm builds"
 substrate-contracts-node,Localnet,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/paritytech/substrate-contracts-node,GitHub releases,"binary | docker","/usr/local/bin/substrate-contracts-node",,,,,Planned,,Active,,,,Infra,"ink! local chain"
+# --- Supply chain & provenance
+Trivy,Vulnerability Scan,Agnostic,Aqua Security,Apache-2.0,https://github.com/aquasecurity/trivy,GitHub releases,"brew | binary | docker","/usr/local/bin/trivy",,,,,Planned,,Active,,,,Security,"Containers/filesystem/ SBOM vuln scan"
+pip-audit,Dependency Audit,Agnostic,PyPA,Apache-2.0,https://github.com/pypa/pip-audit,GitHub releases,"pipx | pip","/usr/local/bin/pip-audit",,,,,Planned,,Active,,,,Security,"Python dependency advisories"
+safety,Dependency Audit,Agnostic,PyUp,BSD-3-Clause,https://github.com/pyupio/safety,GitHub releases,"pipx | pip","/usr/local/bin/safety",,,,,Planned,,Active,,,,Security,"Python vuln DB cross-check"
+cargo-audit,Dependency Audit,Agnostic,RustSec,Apache-2.0,https://github.com/rustsec/rustsec/tree/main/cargo-audit,GitHub releases,"cargo","~/.cargo/bin/cargo-audit",,,,,Planned,,Active,,,,Security,"Rust advisories (RustSec)"
+cargo-deny,Policy/Deps,Agnostic,Embark Studios,Apache-2.0,https://github.com/EmbarkStudios/cargo-deny,GitHub releases,"cargo","~/.cargo/bin/cargo-deny",,,,,Planned,,Active,,,,Security,"Rust license/source/versions policy"
+govulncheck,Dependency Audit,Agnostic,Go Team,BSD-3-Clause,https://go.dev/security/vuln,Releases,"go install","~/go/bin/govulncheck",,,,,Planned,,Active,,,,Security,"Go vulnerability scanner"
+cosign,Signing/Attest,Agnostic,Sigstore,Apache-2.0,https://github.com/sigstore/cosign,GitHub releases,"brew | binary | docker","/usr/local/bin/cosign",,,,,Planned,,Active,,,,Security,"Image/artifact signing + attestations"
+slsa-verifier,Provenance Verify,Agnostic,SLSA,Apache-2.0,https://github.com/slsa-framework/slsa-verifier,GitHub releases,"brew | binary","/usr/local/bin/slsa-verifier",,,,,Planned,,Active,,,,Security,"Verify SLSA provenance"
+in-toto,Provenance,Agnostic,in-toto,Apache-2.0,https://github.com/in-toto/in-toto,GitHub releases,"pipx | pip","/usr/local/bin/in-toto-run",,,,,Planned,,Active,,,,Security,"Software supply chain framework"
+lockfile-lint,Dependency Policy,Agnostic,lirantal,MIT,https://github.com/lirantal/lockfile-lint,GitHub releases,"npm","/usr/local/bin/lockfile-lint",,,,,Planned,,Active,,,,Security,"Enforce registries/https in lockfiles"
+shellcheck,Shell Lint,Agnostic,koalaman,GPL-3.0,https://github.com/koalaman/shellcheck,GitHub releases,"brew | binary | docker","/usr/local/bin/shellcheck",,,,,Planned,,Active,,,,DevEx,"Detect shell script pitfalls"
+shfmt,Shell Format,Agnostic,mvdan,BSD-3-Clause,https://github.com/mvdan/sh,GitHub releases,"brew | binary","/usr/local/bin/shfmt",,,,,Planned,,Active,,,,DevEx,"Idempotent shell formatting"
+pre-commit,Hooks,Agnostic,pre-commit,BSD-2-Clause,https://github.com/pre-commit/pre-commit,GitHub releases,"pipx | pip | brew","/usr/local/bin/pre-commit",,,,,Planned,,Active,,,,DevEx,"Run all the linters locally"
+Dockle,Container Lint,Agnostic,goodwithtech,Apache-2.0,https://github.com/goodwithtech/dockle,GitHub releases,"brew | binary | docker","/usr/local/bin/dockle",,,,,Planned,,Active,,,,DevEx,"CIS checks for Docker images"
+
+# --- ZK toolchain (optional, but recommended)
+circom,ZK Circuits,EVM/ZK,iden3,MIT,https://github.com/iden3/circom,GitHub releases,"npm | build","/usr/local/bin/circom",,,,,Planned,,Active,,,"ZK","Circuit compiler"
+snarkjs,ZK Proofs,EVM/ZK,iden3,LGPL-3.0,https://github.com/iden3/snarkjs,GitHub releases,"npm","/usr/local/bin/snarkjs",,,,,Planned,,Active,,,"ZK","Groth16 tooling"
+rapidsnark,ZK Proofs,EVM/ZK,iden3,MIT,https://github.com/iden3/rapidsnark,GitHub releases,"build | docker","/usr/local/bin/rapidsnark",,,,,Planned,,Active,,,"ZK","Fast prover"
+gnark,ZK Proofs,EVM/ZK,ConsenSys,Apache-2.0,https://github.com/ConsenSys/gnark,GitHub releases,"go install","~/go/bin/gnark",,,,,Planned,,Active,,,"ZK","Go zkSNARK library"
+halo2,ZK Proofs,EVM/ZK,Privacy&Scaling Explorations,Apache-2.0,https://github.com/privacy-scaling-explorations/halo2,GitHub releases,"cargo","~/.cargo/bin/halo2",,,,,Planned,,Active,,,"ZK","PLONKish prover circuits"
+
+# --- Chain sandboxes / DX
+Flextesa,Localnet,Tezos,Nomadic Labs,MIT,https://gitlab.com/tezos/flextesa,GitLab releases,"docker | opam","/usr/local/bin/flextesa",,,,,Planned,,Active,,,,Infra,"Tezos sandbox (docker)"
+Algokit,Dev Toolkit,Algorand,Algorand Foundation,Apache-2.0,https://github.com/algorandfoundation/algokit,GitHub releases,"brew | pipx","/usr/local/bin/algokit",,,,,Planned,,Active,,,,Dev,"Algorand project scaffolding + test"
+Algorand Sandbox,Localnet,Algorand,Algorand,MIT,https://github.com/algorand/sandbox,GitHub releases,"docker","docker://algorand/sandbox",,,,,Planned,,Active,,,,Infra,"Algorand docker localnet"
+NEAR Sandbox,Localnet,NEAR,NEAR,Apache-2.0,https://github.com/near/sandbox,GitHub releases,"docker","docker://near/sandbox",,,,,Planned,,Active,,,,Infra,"NEAR local devnet"
+starkli,CLI,Starknet,xJonathan (community),MIT,https://github.com/xJonathan/starkli,GitHub releases,"brew | binary","/usr/local/bin/starkli",,,,,Planned,,Active,,,,Dev,"Lightweight Starknet CLI"
+aptos-node (localnet),Localnet,Aptos (Move),Aptos Labs,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,"docker | source","/usr/local/bin/aptos-node",,,,,Planned,,Active,,,,Infra,"Spin up local Aptos"
