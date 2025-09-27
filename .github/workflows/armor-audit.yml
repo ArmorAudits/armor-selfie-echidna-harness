@@ -5,51 +5,44 @@ on:
   pull_request:
   push:
     branches:
-      - audit/**
       - main
+      - audit/**
+      - chore/**
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+  id-token: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
     timeout-minutes: 120
-    permissions:
-      contents: read
-      actions: read
-      security-events: write
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node (for Scribble)
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
 
-      - name: Setup Python (for Slither/Mythril + tool scripts)
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
 
-      - name: Setup Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: stable
+      - uses: foundry-rs/foundry-toolchain@v1
+        with: { version: stable }
 
-      - name: Cache pip
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
 
-      - name: Install analyzers (Slither & Mythril)
+      - name: Install analyzers
         run: |
           python -m pip install --upgrade pip
           pip install slither-analyzer mythril crytic-compile
+          npm i -g @consensys/scribble
 
-      - name: Install Scribble
-        run: npm i -g @consensys/scribble
-
-      # --- SBOM + vuln scan (re-uses your existing Make targets if present)
+      # --- Supply chain: SBOM + vulnerability scan (re-uses your Make targets)
       - name: Security Doctor
         run: make doctor || true
 
@@ -59,7 +52,7 @@ jobs:
       - name: Grype (SBOM scan)
         run: make audit || true
 
-      # --- Solidity static analysis & tests
+      # --- Static + fuzz + invariants + symbolic
       - name: Slither
         run: make slither || true
 
@@ -69,15 +62,67 @@ jobs:
       - name: Fuzz (Foundry)
         run: make fuzz || true
 
-      - name: Mythril (EVM symbolic)
+      - name: Mythril (EVM symbolic quick)
         run: make mythril || true
 
-      # --- Draft report asset
+      # --- Coverage gate
+      - name: Coverage
+        run: make coverage
+        env:
+          MIN_COVERAGE: "80"
+
+      # --- Secrets and IaC scanning (SARIF uploads)
+      - name: Gitleaks (secrets)
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: "--redact --report-path artifacts/gitleaks.json"
+        continue-on-error: true
+
+      - name: Trivy FS (deps/IaC)
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: sarif
+          output: artifacts/trivy.sarif
+          severity: HIGH,CRITICAL
+        continue-on-error: true
+
+      - name: Upload Code Scanning (Trivy)
+        uses: github/codeql-action/upload-sarif@v3
+        with: { sarif_file: artifacts/trivy.sarif }
+        continue-on-error: true
+
+      # --- SBOM signing (keyless OIDC, artifact only)
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign SBOM (keyless)
+        env: { COSIGN_EXPERIMENTAL: "1" }
+        run: |
+          test -f artifacts/sbom.spdx.json || exit 0
+          cosign sign-blob --yes \
+            --output-signature artifacts/sbom.spdx.json.sig \
+            artifacts/sbom.spdx.json || true
+
+      # --- Report draft
       - name: Build report draft
         run: make report || true
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
           name: armor-audit-artifacts
           path: artifacts/*
+
+  # Optional: nightly quick scan (can be disabled)
+  nightly:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: fs
+          scan-ref: .
+          format: table
+          severity: HIGH,CRITICAL
