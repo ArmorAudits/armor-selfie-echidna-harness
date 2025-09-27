@@ -1,4 +1,19 @@
 import csv, json, os, sys, re, time, pathlib, datetime
+
+# --- begin tolerant DictWriter patch ---
+import csv as _csv_patch_ref
+_OrigDictWriter = _csv_patch_ref.DictWriter
+class _FilteringDictWriter(_OrigDictWriter):
+    def writerow(self, rowdict):
+        # Ignore keys not present in fieldnames, fill missing with ""
+        filtered = {k: rowdict.get(k, "") for k in self.fieldnames}
+        return super().writerow(filtered)
+    def writerows(self, rowdicts):
+        for r in rowdicts:
+            self.writerow(r)
+_csv_patch_ref.DictWriter = _FilteringDictWriter
+# --- end tolerant DictWriter patch ---
+
 from typing import List, Dict, Any
 import os, requests, yaml
 
@@ -177,7 +192,7 @@ def main():
             "ReplacedBy","Owner","Notes"]
     csv_path = ART/"monitor_report.csv"
     with open(csv_path,"w",newline="",encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols)
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction='ignore')
         w.writeheader()
         for r in all_rows:
             w.writerow(r)
