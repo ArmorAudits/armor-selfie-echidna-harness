@@ -66,7 +66,7 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Tool | Category | Vendor | Repo |
 |---|---|---|---|
 | Dapptools | Dev | DappHub | [dapphub/dapptools](https://github.com/dapphub/dapptools) |
-| hevm | Dev | DappHub | [dapphub/hevm](https://github.com/dapphub/hevm) |
+| hevm | Dev | DappHub | [dapphub/dapptools](https://github.com/dapphub/dapptools) |
 | Hyperledger Besu | Node | Hyperledger | [hyperledger/besu](https://github.com/hyperledger/besu) |
 | Lighthouse (Consensus) | Node | Sigma Prime | [sigp/lighthouse](https://github.com/sigp/lighthouse) |
 | Nimbus (Consensus) | Node | Status | [status-im/nimbus-eth2](https://github.com/status-im/nimbus-eth2) |
@@ -130,7 +130,7 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 
 | Tool | Category | Vendor | Repo |
 |---|---|---|---|
-| NEAR CLI | CLI | NEAR | [near/near-cli](https://github.com/near/near-cli) |
+| NEAR CLI | CLI | NEAR | [near/near-cli-rs](https://github.com/near/near-cli-rs) |
 | near-cli-rs | cli | near | [near/near-cli-rs](https://github.com/near/near-cli-rs) |
 | nearcore | client | near | [near/nearcore](https://github.com/near/nearcore) |
 
@@ -179,7 +179,7 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Tool | Category | Vendor | Repo |
 |---|---|---|---|
 | LigoLang | Lang | LIGO | [ligolang/ligo](https://github.com/ligolang/ligo) |
-| SmartPy | Lang | SmartPy | [SmartPy/SmartPy](https://github.com/SmartPy/SmartPy) |
+| SmartPy | Lang | SmartPy | [SmartPy/smartpy](https://github.com/SmartPy/smartpy) |
 | Octez (Tezos) | Node | Tezos | [tezos/tezos](https://github.com/tezos/tezos) |
 
 ## TON

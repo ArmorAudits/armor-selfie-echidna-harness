@@ -75,17 +75,17 @@
 | Teku (Consensus) | ConsenSys/teku | - | - | - | no |
 | Nimbus (Consensus) | status-im/nimbus-eth2 | - | - | - | no |
 | Dapptools | dapphub/dapptools | - | - | - | no |
-| hevm | dapphub/hevm | - | - | no longer supported (archived) | YES |
+| hevm | dapphub/dapptools | - | - | - | no |
 | Circom | iden3/circom | - | - | - | no |
 | snarkjs | iden3/snarkjs | - | - | - | no |
 | ZoKrates | ZoKrates/ZoKrates | - | - | - | no |
 | Bitcoin Core | bitcoin/bitcoin | - | - | - | no |
-| NEAR CLI | near/near-cli | - | - | no longer supported (archived) | YES |
+| NEAR CLI | near/near-cli-rs | - | - | - | no |
 | Octez (Tezos) | tezos/tezos | - | - | - | no |
 | LigoLang | ligolang/ligo | - | - | - | no |
-| SmartPy | SmartPy/SmartPy | - | - | repo not found | YES |
+| SmartPy | SmartPy/smartpy | - | - | repo not found | YES |
 | Flow CLI | onflow/flow-cli | - | - | - | no |
 | AvalancheGo | ava-labs/avalanchego | - | - | - | no |
 | BSC (BNB Chain) | bnb-chain/bsc | - | - | - | no |
-| Polygon Edge | 0xPolygon/polygon-edge | - | - | no longer supported (archived) | YES |
+| Polygon Edge | 0xPolygon/polygon-edge | - | - | no longer supported (archived) | no |
 | toncli | ton-community/toncli | - | - | repo not found | YES |
