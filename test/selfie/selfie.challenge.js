@@ -13,7 +13,7 @@ describe('[Challenge] Selfie', function () {
 
     const TOKEN_INITIAL_SUPPLY = ether('2000000')
     const TOKENS_IN_POOL = ether('1500000');
-    
+
 
     before(async function () {
         /** SETUP SCENARIO */
@@ -21,7 +21,7 @@ describe('[Challenge] Selfie', function () {
         this.governance = await SimpleGovernance.new(this.token.address, { from: deployer });
         this.pool = await SelfiePool.new(
             this.token.address,
-            this.governance.address, 
+            this.governance.address,
             { from: deployer }
         );
 
@@ -40,7 +40,7 @@ describe('[Challenge] Selfie', function () {
         /** SUCCESS CONDITIONS */
         expect(
             await this.token.balanceOf(attacker)
-        ).to.be.bignumber.equal(TOKENS_IN_POOL);        
+        ).to.be.bignumber.equal(TOKENS_IN_POOL);
         expect(
             await this.token.balanceOf(this.pool.address)
         ).to.be.bignumber.equal('0');

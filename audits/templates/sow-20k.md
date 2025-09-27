@@ -1,8 +1,8 @@
 # Statement of Work — Fixed-Scope Security Audit ($20,000)
 
-**Vendor:** Armor Audits (Armoraudits.com)  
-**Client:** <Client Name>  
-**Scope cap:** up to 10 person-days, one free retest within 30 days.  
+**Vendor:** Armor Audits (Armoraudits.com)
+**Client:** <Client Name>
+**Scope cap:** up to 10 person-days, one free retest within 30 days.
 **Deliverables:** Draft report, final report, PoCs, remediation call.
 
 ## Timeline

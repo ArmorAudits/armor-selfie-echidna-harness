@@ -1,5 +1,6 @@
 name: Release Evidence
 on:
+  pull_request:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -25,3 +26,5 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: artifacts/evidence-*.zip
+
+# ci-noop-refresh
