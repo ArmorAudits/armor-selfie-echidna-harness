@@ -16,19 +16,19 @@
 | Hermes (IBC) | informalsystems/hermes | - | - | - | no |
 | Ignite CLI | ignite/cli | - | - | - | no |
 | Anvil (Foundry) | foundry-rs/foundry | - | - | - | no |
-| ApeWorx (Ape) | - | - | - | no repo configured | no |
-| Brownie | - | - | - | no repo configured | no |
+| ApeWorx (Ape) | ApeWorX/ape | - | - | - | no |
+| Brownie | eth-brownie/brownie | - | - | - | no |
 | Echidna | crytic/echidna | - | - | - | no |
-| Erigon | - | - | - | no repo configured | no |
+| Erigon | erigontech/erigon | - | - | - | no |
 | Etherscan API | - | - | - | no repo configured | no |
 | Foundry (forge/cast/anvil) | foundry-rs/foundry | - | - | - | no |
 | Ganache | https://github.com/trufflesuite/ganache | - | - | no longer supported (archived) | no |
-| Halmos | Certora/halmos | - | - | repo not found | YES |
+| Halmos | certora/halmos | - | - | repo not found | YES |
 | Hardhat | NomicFoundation/hardhat | - | - | - | no |
 | Manticore | trailofbits/manticore | - | - | - | no |
 | Medusa | crytic/medusa | - | - | - | no |
 | Mythril | ConsenSys/mythril | - | - | - | no |
-| Nethermind | - | - | - | no repo configured | no |
+| Nethermind | NethermindEth/nethermind | - | - | - | no |
 | OpenZeppelin Contracts | OpenZeppelin/openzeppelin-contracts | - | - | - | no |
 | OpenZeppelin Defender | OpenZeppelin/defender-sdk | - | - | - | no |
 | Oyente | https://github.com/melonproject/oyente | - | - | no longer supported (archived) | no |
@@ -45,3 +45,21 @@
 | geth | ethereum/go-ethereum | - | - | - | no |
 | solc | ethereum/solidity | - | - | - | no |
 | solc-select | crytic/solc-select | - | - | - | no |
+| Solana CLI | solana-labs/solana | - | - | no longer supported (archived) | YES |
+| Anchor (Solana) | coral-xyz/anchor | - | - | - | no |
+| SPL Token CLI | solana-labs/solana-program-library | - | - | no longer supported (archived) | YES |
+| Aderyn (Solana static analysis) | - | - | - | no repo configured | no |
+| Cairo | starkware-libs/cairo | - | - | - | no |
+| Scarb (Cairo pkg mgr) | software-mansion/scarb | - | - | - | no |
+| starknet-devnet | 0xSpaceShard/starknet-devnet | - | - | - | no |
+| Starknet Foundry | foundry-rs/starknet-foundry | - | - | - | no |
+| Sui CLI | MystenLabs/sui | - | - | - | no |
+| Polkadot SDK | paritytech/polkadot-sdk | - | - | - | no |
+| Substrate | paritytech/substrate | - | - | no longer supported (archived) | YES |
+| ink! | paritytech/ink | - | - | - | no |
+| cargo-contract | paritytech/cargo-contract | - | - | - | no |
+| near-cli-rs | near/near-cli-rs | - | - | - | no |
+| pip-audit | pypa/pip-audit | - | - | - | no |
+| trivy | aquasecurity/trivy | - | - | - | no |
+| trufflehog | trufflesecurity/trufflehog | - | - | - | no |
+| actionlint | rhysd/actionlint | - | - | - | no |

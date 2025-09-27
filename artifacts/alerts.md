@@ -1,8 +1,11 @@
-# Tool Monitor Alerts — 2025-09-27T04:21:47Z
+# Tool Monitor Alerts — 2025-09-27T04:38:39Z
 
 ## Quarantined
 
 - **Halmos** — repo not found
+- **Solana CLI** — no longer supported (archived)
+- **SPL Token CLI** — no longer supported (archived)
+- **Substrate** — no longer supported (archived)
 
 ## Allowed (archived)
 

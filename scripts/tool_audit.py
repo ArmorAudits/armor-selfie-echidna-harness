@@ -82,6 +82,10 @@ def audit():
             out.append(status); continue
 
         owner, rname = normalize_repo(repo)
+
+        allow_missing_repo = str((r.get('AllowMissingRepo') or '')).strip().lower() in ('1','true','yes','y')
+
+        force_not_archived = str((r.get('ForceNotArchived') or '')).strip().lower() in ('1','true','yes','y')
         if not owner:
             status["reasons"].append("no repo configured or unsupported host")
             out.append(status); continue
