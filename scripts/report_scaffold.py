@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import os, subprocess, datetime, pathlib
+import datetime
+import pathlib
+import subprocess
 
 ART = pathlib.Path("artifacts")
 ART.mkdir(exist_ok=True, parents=True)

@@ -1,7 +1,13 @@
-import csv, json, os, sys, re, time, pathlib, datetime
+import csv
 
 # --- begin tolerant DictWriter patch ---
 import csv as _csv_patch_ref
+import datetime
+import json
+import os
+import pathlib
+import re
+import sys
 
 _OrigDictWriter = _csv_patch_ref.DictWriter
 
@@ -20,8 +26,10 @@ class _FilteringDictWriter(_OrigDictWriter):
 _csv_patch_ref.DictWriter = _FilteringDictWriter
 # --- end tolerant DictWriter patch ---
 
-from typing import List, Dict, Any
-import os, requests, yaml
+from typing import Any, Dict, List
+
+import requests
+import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ART = ROOT / "artifacts"

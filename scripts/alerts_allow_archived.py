@@ -1,4 +1,6 @@
-import csv, re, sys
+import csv
+import re
+import sys
 from pathlib import Path
 
 csv_path = Path("monitor/tools.csv")
