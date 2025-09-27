@@ -55,7 +55,7 @@
 | Starknet Foundry | foundry-rs/starknet-foundry | - | - | - | no |
 | Sui CLI | MystenLabs/sui | - | - | - | no |
 | Polkadot SDK | paritytech/polkadot-sdk | - | - | - | no |
-| Substrate | paritytech/substrate | - | - | no longer supported (archived) | YES |
+| Substrate | paritytech/substrate | - | - | no longer supported (archived) | no |
 | ink! | paritytech/ink | - | - | - | no |
 | cargo-contract | paritytech/cargo-contract | - | - | - | no |
 | near-cli-rs | near/near-cli-rs | - | - | - | no |
@@ -63,3 +63,9 @@
 | trivy | aquasecurity/trivy | - | - | - | no |
 | trufflehog | trufflesecurity/trufflehog | - | - | - | no |
 | actionlint | rhysd/actionlint | - | - | - | no |
+| Ape (ApeWorX) | ApeWorX/ape | - | - | - | no |
+| OpenZeppelin Cairo Contracts | OpenZeppelin/cairo-contracts | - | - | - | no |
+| nearcore | near/nearcore | - | - | - | no |
+| Syft | anchore/syft | - | - | - | no |
+| Grype | anchore/grype | - | - | - | no |
+| GitHub CLI (gh) | cli/cli | - | - | - | no |

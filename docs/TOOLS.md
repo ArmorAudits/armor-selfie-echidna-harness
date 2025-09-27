@@ -35,6 +35,20 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Hermes (IBC) | Relayer | Informal | [informalsystems/hermes](https://github.com/informalsystems/hermes) |
 | Ignite CLI | Scaffold/CLI | Ignite | [ignite/cli](https://github.com/ignite/cli) |
 
+## DevSecOps
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Syft | sbom | anchore | [anchore/syft](https://github.com/anchore/syft) |
+| Grype | vuln-scan | anchore | [anchore/grype](https://github.com/anchore/grype) |
+| trivy | vuln-scan | aquasecurity | [aquasecurity/trivy](https://github.com/aquasecurity/trivy) |
+
+## EVM
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Ape (ApeWorX) | framework | ApeWorX | [ApeWorX/ape](https://github.com/ApeWorX/ape) |
+
 ## EVM, Base
 
 | Tool | Category | Vendor | Repo |
@@ -70,26 +84,58 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Etherscan API | Verification | Etherscan | - |
 | Sourcify | Verification | Ethereum.org | [ethereum/sourcify](https://github.com/ethereum/sourcify) |
 
+## General
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| GitHub CLI (gh) | cli | cli | [cli/cli](https://github.com/cli/cli) |
+
+## NEAR
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| near-cli-rs | cli | near | [near/near-cli-rs](https://github.com/near/near-cli-rs) |
+| nearcore | client | near | [near/nearcore](https://github.com/near/nearcore) |
+
+## Polkadot
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Polkadot SDK | framework | paritytech | [paritytech/polkadot-sdk](https://github.com/paritytech/polkadot-sdk) |
+| Substrate | framework | paritytech | [paritytech/substrate](https://github.com/paritytech/substrate) |
+| ink! | lang | paritytech | [paritytech/ink](https://github.com/paritytech/ink) |
+| cargo-contract | tooling | paritytech | [paritytech/cargo-contract](https://github.com/paritytech/cargo-contract) |
+
+## Solana
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Solana CLI | cli | solana-labs | [solana-labs/solana](https://github.com/solana-labs/solana) |
+| SPL Token CLI | cli | solana-labs | [solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library) |
+| Anchor (Solana) | framework | coral-xyz | [coral-xyz/anchor](https://github.com/coral-xyz/anchor) |
+| Aderyn (Solana static analysis) | security |  | - |
+
+## Starknet
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Starknet Foundry | framework | foundry-rs | [foundry-rs/starknet-foundry](https://github.com/foundry-rs/starknet-foundry) |
+| Cairo | lang | starkware-libs | [starkware-libs/cairo](https://github.com/starkware-libs/cairo) |
+| OpenZeppelin Cairo Contracts | library | OpenZeppelin | [OpenZeppelin/cairo-contracts](https://github.com/OpenZeppelin/cairo-contracts) |
+| starknet-devnet | local chain | 0xSpaceShard | [0xSpaceShard/starknet-devnet](https://github.com/0xSpaceShard/starknet-devnet) |
+| Scarb (Cairo pkg mgr) | pkg | software-mansion | [software-mansion/scarb](https://github.com/software-mansion/scarb) |
+
+## Sui
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Sui CLI | cli | MystenLabs | [MystenLabs/sui](https://github.com/MystenLabs/sui) |
+
 ## Unspecified
 
 | Tool | Category | Vendor | Repo |
 |---|---|---|---|
 | actionlint |  |  | [rhysd/actionlint](https://github.com/rhysd/actionlint) |
-| Aderyn (Solana static analysis) |  |  | - |
-| Anchor (Solana) |  |  | [coral-xyz/anchor](https://github.com/coral-xyz/anchor) |
-| Cairo |  |  | [starkware-libs/cairo](https://github.com/starkware-libs/cairo) |
-| cargo-contract |  |  | [paritytech/cargo-contract](https://github.com/paritytech/cargo-contract) |
-| ink! |  |  | [paritytech/ink](https://github.com/paritytech/ink) |
-| near-cli-rs |  |  | [near/near-cli-rs](https://github.com/near/near-cli-rs) |
 | pip-audit |  |  | [pypa/pip-audit](https://github.com/pypa/pip-audit) |
-| Polkadot SDK |  |  | [paritytech/polkadot-sdk](https://github.com/paritytech/polkadot-sdk) |
-| Scarb (Cairo pkg mgr) |  |  | [software-mansion/scarb](https://github.com/software-mansion/scarb) |
-| Solana CLI |  |  | [solana-labs/solana](https://github.com/solana-labs/solana) |
-| SPL Token CLI |  |  | [solana-labs/solana-program-library](https://github.com/solana-labs/solana-program-library) |
-| Starknet Foundry |  |  | [foundry-rs/starknet-foundry](https://github.com/foundry-rs/starknet-foundry) |
-| starknet-devnet |  |  | [0xSpaceShard/starknet-devnet](https://github.com/0xSpaceShard/starknet-devnet) |
-| Substrate |  |  | [paritytech/substrate](https://github.com/paritytech/substrate) |
-| Sui CLI |  |  | [MystenLabs/sui](https://github.com/MystenLabs/sui) |
-| trivy |  |  | [aquasecurity/trivy](https://github.com/aquasecurity/trivy) |
 | trufflehog |  |  | [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) |
 
