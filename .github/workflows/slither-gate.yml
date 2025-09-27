@@ -17,6 +17,12 @@ jobs:
         continue-on-error: false
         run: |
           slither . --compile-force-framework foundry --ignore-compile \
+          slither . --compile-force-framework foundry --ignore-compile \
+            --detect-all --json artifacts/slither.json --sarif artifacts/slither.sarif || EXIT=$?
+          if jq -e '.results.detectors[] | select(.impact=="High")' artifacts/slither.json >/dev/null 2>&1; then
+            echo "High severity finding(s) detected"; exit 1
+          fi
+          exit ${EXIT:-0}
             --detect-all --json artifacts/slither.json || EXIT=$?
           # Fail on high severity
           if jq -e '.results.detectors[] | select(.impact=="High")' artifacts/slither.json >/dev/null 2>&1; then
@@ -29,3 +35,8 @@ jobs:
         with:
           name: slither-json
           path: artifacts/slither.json
+      - name: Upload SARIF to Code Scanning
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: artifacts/slither.sarif
