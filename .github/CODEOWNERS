@@ -1,0 +1,5 @@
+# default owners for everything
+* @ArmorAudits/maintainers
+
+# audit code and specs need auditors too
+/audits/** @ArmorAudits/auditors @ArmorAudits/maintainers
