@@ -1,3 +1,10 @@
+[![Armor Audit](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/armor-audit.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/armor-audit.yml)
+[![Security Monitor](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/security-monitor.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/security-monitor.yml)
+[![Slither Gate](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/slither-gate.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/slither-gate.yml)
+[![Foundry Matrix](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/foundry-matrix.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/foundry-matrix.yml)
+[![CodeQL](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/codeql.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/codeql.yml)
+[![Release Evidence](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/release-evidence.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/release-evidence.yml)
+
 # DVT Selfie — Echidna Harness
 ...content...
 ## Security
