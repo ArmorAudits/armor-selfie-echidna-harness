@@ -1,0 +1,83 @@
+name: Armor Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - audit/**
+      - main
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node (for Scribble)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup Python (for Slither/Mythril + tool scripts)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Setup Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}
+
+      - name: Install analyzers (Slither & Mythril)
+        run: |
+          python -m pip install --upgrade pip
+          pip install slither-analyzer mythril crytic-compile
+
+      - name: Install Scribble
+        run: npm i -g @consensys/scribble
+
+      # --- SBOM + vuln scan (re-uses your existing Make targets if present)
+      - name: Security Doctor
+        run: make doctor || true
+
+      - name: SBOM
+        run: make sbom || true
+
+      - name: Grype (SBOM scan)
+        run: make audit || true
+
+      # --- Solidity static analysis & tests
+      - name: Slither
+        run: make slither || true
+
+      - name: Invariants (Scribble + Foundry)
+        run: make invariants || true
+
+      - name: Fuzz (Foundry)
+        run: make fuzz || true
+
+      - name: Mythril (EVM symbolic)
+        run: make mythril || true
+
+      # --- Draft report asset
+      - name: Build report draft
+        run: make report || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: armor-audit-artifacts
+          path: artifacts/*

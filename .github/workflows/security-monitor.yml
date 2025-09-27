@@ -1,0 +1,105 @@
+
+name: Security Monitor
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [ main, chore/**, feat/** ]
+  schedule:
+    - cron: "0 9 * * 1"    # Every Monday 09:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install CLI deps
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Doctor (base checks)
+        run: |
+          python monitor/doctor.py --inventory monitor/tools.csv || true
+
+      - name: SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: artifacts/sbom.spdx.json
+
+      - name: Grype (vuln scan of SBOM)
+        uses: anchore/grype-action@v1
+        with:
+          sbom: artifacts/sbom.spdx.json
+          fail-on-severity: high
+
+      - name: Tool audit (reasons + quarantine policy)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/tool_audit.py
+          echo "== tools_report.md =="
+          sed -n '1,120p' artifacts/tools_report.md || true
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-artifacts
+          path: artifacts/*
+
+
+  weekly-checks:
+    if: github.event_name == 'schedule'
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Tool auto-update check (brew/pipx/cargo/npm/gh)
+        run: |
+          set -e
+          mkdir -p artifacts
+          {
+            echo "# Weekly Update Check — $(date -u +%FT%TZ)"
+            echo
+            echo "## Homebrew"
+            brew update >/dev/null
+            brew outdated || true
+            echo
+            echo "## pipx"
+            pipx list || true
+            echo
+            echo "## cargo (cargo-update)"
+            cargo install cargo-update --locked >/dev/null 2>&1 || true
+            cargo install-update -l || true
+            echo
+            echo "## npm (global)"
+            npm -g outdated || true
+            echo
+            echo "## gh extensions"
+            gh extension list || true
+          } | tee artifacts/weekly_update_report.md
+
+      - name: Weekly tool audit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/tool_audit.py
+          sed -n '1,60p' artifacts/alerts.md
+
+      - name: Upload weekly artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-checks
+          path: artifacts/*
