@@ -1,0 +1,18 @@
+name: Dispatch Guard
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure every workflow supports manual dispatch
+        run: |
+          missing=0
+          for wf in .github/workflows/*.yml; do
+            awk '/^on:/{on=1} on && /workflow_dispatch:/{wd=1} END{exit(!wd)}' "$wf" || {
+              echo "❌ $wf lacks workflow_dispatch"; missing=1;
+            }
+          done
+          [ "$missing" -eq 0 ] || { echo "Failing due to missing workflow_dispatch"; exit 1; }
