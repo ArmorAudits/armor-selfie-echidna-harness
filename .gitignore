@@ -44,3 +44,4 @@ artifacts/*
 monitor/*.bak*
 monitor/tools_norepo.csv
 # scripts/  # ← uncomment to ignore local scripts
+.envrc
