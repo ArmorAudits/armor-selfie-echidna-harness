@@ -34,6 +34,8 @@ mcore_selfie/
 crytic-export/
 echidna_results/
 artifacts/
+<<<<<<< HEAD
+=======
 # Track alert snapshots under artifacts/
 !artifacts/
 artifacts/*
@@ -44,4 +46,5 @@ artifacts/*
 monitor/*.bak*
 monitor/tools_norepo.csv
 # scripts/  # ← uncomment to ignore local scripts
+>>>>>>> origin/main
 .envrc
