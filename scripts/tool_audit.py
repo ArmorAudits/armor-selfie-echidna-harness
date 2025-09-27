@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-import csv, json, os, sys, re
-from pathlib import Path
+import csv
+import json
+import os
+import re
+import sys
 from datetime import datetime, timezone
+from pathlib import Path
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
-from urllib.error import HTTPError, URLError
 
 CSV_PATH = Path("monitor/tools.csv")
 ART = Path("artifacts")

@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-import os, csv, base64, re, argparse, requests
+import argparse
+import base64
+import csv
+import os
+import re
+
+import requests
 
 # Scan a wide set of text-ish files (<= 250 KB)
 TEXTY = (
