@@ -1,0 +1,39 @@
+name: Foundry Matrix
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 7 * * 1"  # Mon 07:30 UTC
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        solc: [ "0.8.20", "0.8.26", "0.8.30" ]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+      - name: Pin solc
+        run: |
+          forge --version
+          forge config --set evm_version "shanghai" || true
+          echo -e "[profile.default]\nsolc_version = \"${{ matrix.solc }}\"" > foundry.toml
+          cat foundry.toml
+      - name: Build & Test
+        run: |
+          forge build
+          forge test -vvv
+      - name: Coverage (store)
+        run: |
+          forge coverage --report lcov || true
+          mkdir -p artifacts && cp -f lcov.info artifacts/foundry.lcov || true
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foundry-coverage-${{ matrix.solc }}
+          path: artifacts/foundry.lcov
