@@ -3,6 +3,33 @@ import csv, os, sys, json, base64, re
 from datetime import datetime, timezone, timedelta
 import urllib.request
 
+from urllib.parse import urlparse
+
+def normalize_repo(repo: str):
+    # Accepts owner/repo, github.com/owner/repo, or full https://github.com/owner/repo[.git]
+    if not repo:
+        return (None, None)
+    s = repo.strip().rstrip('/')
+    s = re.sub(r'\.git$', '', s, flags=re.I)
+
+    # Full URL
+    if s.lower().startswith('http://') or s.lower().startswith('https://'):
+        u = urlparse(s)
+        if u.netloc.lower() != 'github.com':
+            return (None, None)
+        parts = [p for p in u.path.split('/') if p]
+        return (parts[0], parts[1]) if len(parts) >= 2 else (None, None)
+
+    # Prefixed with github.com/
+    if s.lower().startswith('github.com/'):
+        parts = [p for p in s.split('/') if p]
+        return (parts[1], parts[2]) if len(parts) >= 3 else (None, None)
+
+    # owner/repo
+    parts = s.split('/')
+    return (parts[0], parts[1]) if len(parts) == 2 and all(parts) else (None, None)
+
+
 CSV_PATH = "monitor/tools.csv"
 ALERTS_MD = "artifacts/alerts.md"          # will be enriched/rebuilt by this script
 REPORT_MD = "artifacts/tools_report.md"    # full table of tool statuses
@@ -137,7 +164,7 @@ def write_reports(statuses):
     allowed_arch = [s for s in statuses if (not s["quarantine"]) and s["allow_archived"] and ("no longer supported" in s["reasons"])]
 
     lines = []
-    lines.append(f"# Tool Monitor Alerts — {datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')}\n\n")
+    lines.append(f"# Tool Monitor Alerts — {datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}\n\n")
 
     lines.append("## Quarantined\n\n")
     if quarantined:
