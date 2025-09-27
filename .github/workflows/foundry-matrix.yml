@@ -34,11 +34,11 @@ jobs:
         run: |
           forge coverage --report lcov || true
       - name: Upload to Codecov
+      - name: Upload coverage
+      - name: Upload to Codecov
         uses: codecov/codecov-action@v4
         with:
           files: artifacts/foundry.lcov
-          mkdir -p artifacts && cp -f lcov.info artifacts/foundry.lcov || true
-      - name: Upload coverage
         if: always()
         uses: actions/upload-artifact@v4
         with:
