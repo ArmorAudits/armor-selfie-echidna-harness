@@ -6,8 +6,15 @@ on:
 jobs:
   bundle:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write     # for keyless signing (cosign)
+      contents: write     # upload to release
     steps:
       - uses: actions/checkout@v4
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v3
+        with:
+          cosign-release: 'v2.2.4'
       - name: Build Evidence
         run: |
           bash scripts/evidence_bundle.sh
