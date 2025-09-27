@@ -1,16 +1,15 @@
 name: Release Drafter
 on:
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-  push: { branches: [main] }
+  push:
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 jobs:
-  draft:
+  update_release_draft:
     runs-on: ubuntu-latest
     steps:
       - uses: release-drafter/release-drafter@v6
+        with:
+          config-name: release-drafter.yml
         env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-# ci-noop-refresh
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
