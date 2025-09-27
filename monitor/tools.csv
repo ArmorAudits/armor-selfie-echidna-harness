@@ -1,167 +1,44 @@
-Tool,Category,Chain,Vendor,License,RepoURL,MonitorMethod,InstallMethod,BinaryPath,Version,FirstSeen,AdoptedOn,LastUsed,LastUpdateCheck,Status,StatusOn,ReasonCode,Reason,ReplacedBy,Owner,Notes
-Docker,Container,Agnostic,Docker,Apache-2.0,https://github.com/docker/cli,brew update,"brew | pkg","/usr/local/bin/docker",,,2025-09-24,,,Adopted,2025-09-24,,,,Infra,
-GitHub Actions,CI,Agnostic,GitHub,Proprietary,https://docs.github.com/actions,n/a,n/a,n/a,,,,,,Adopted,2025-09-24,,,,DevOps,"Echidna + Slither workflow"
-gh (GitHub CLI),CLI,Agnostic,GitHub,MIT,https://github.com/cli/cli,brew update,brew,"/usr/local/bin/gh",,,2025-09-24,,,Adopted,2025-09-24,,,,DevOps,"Used for repo create/push"
-git,VCS,Agnostic,Git,GPL-2.0,https://git-scm.com/,brew update,brew,"/usr/local/bin/git",,,2025-09-24,,,Adopted,2025-09-24,,,,DevOps,
-gitleaks,Secrets,Agnostic,Gitleaks,MIT,https://github.com/gitleaks/gitleaks,GitHub releases,"brew | docker","/usr/local/bin/gitleaks",,,2025-09-24,,,Adopted,2025-09-24,,,,Security,
-PyTeal,DSL,Algorand,Algorand,MIT,https://github.com/algorand/pyteal,pip index,pip,"/usr/local/bin/pyteal",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-goal,CLI,Algorand,Algorand,MIT,https://github.com/algorand/go-algorand,GitHub releases,"binary | brew","/usr/local/bin/goal",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Move Prover,Formal Verification,"Aptos (Move)",Move,Apache-2.0,https://github.com/move-language/move,GitHub releases,"cargo | docker",,,,,,Planned,2025-09-24,,,,Security,
-aptos-cli,CLI,"Aptos (Move)",Aptos,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,"brew | binary","/usr/local/bin/aptos",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Cosmos SDK,Framework,Cosmos,Cosmos,Apache-2.0,https://github.com/cosmos/cosmos-sdk,GitHub releases,go install,"$GOPATH/bin",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Gaiad,Node,Cosmos,Cosmos,Apache-2.0,https://github.com/cosmos/gaia,GitHub releases,"binary | docker","/usr/local/bin/gaiad",,,2025-09-24,,,Planned,2025-09-24,,,,Infra,
-Hermes (IBC),Relayer,Cosmos,Informal,Apache-2.0,https://github.com/informalsystems/hermes,GitHub releases,"brew | cargo","/usr/local/bin/hermes",,,2025-09-24,,,Planned,2025-09-24,,,,Infra,
-Ignite CLI,Scaffold/CLI,Cosmos,Ignite,Apache-2.0,https://github.com/ignite/cli,GitHub releases,"brew | go install","/usr/local/bin/ignite",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Anvil (Foundry),Local Node,"EVM, Base",Foundry,Apache-2.0,https://github.com/foundry-rs/foundry,GitHub releases,foundryup,"/usr/local/bin/anvil",,,2025-09-24,,,Adopted,2025-09-24,,,,Dev,
-ApeWorx (Ape),Framework,"EVM, Base",ApeWorx,Apache-2.0,https://github.com/ApeWorx/ape,pip index,pip,"/usr/local/bin/ape",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,"Pythonic framework"
-Brownie,Framework,"EVM, Base",eth-brownie,MIT,https://github.com/eth-brownie/brownie,pip index,pip,"/usr/local/bin/brownie",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Echidna,Fuzzer,"EVM, Base","Crytic/Trail of Bits",AGPL-3.0,https://github.com/crytic/echidna,GitHub releases,"docker | cabal","docker://ghcr.io/crytic/echidna/echidna:latest",,,2025-09-24,,,Adopted,2025-09-24,,,"",Security,"Property-based fuzzing; used in Selfie harness; pinned solc 0.6.12"
-Erigon,Node,"EVM, Base",Erigon,GPL-3.0,https://github.com/ledgerwatch/erigon,GitHub releases,"binary | docker",,,,,,Planned,2025-09-24,,,,Infra,
-Etherscan API,Verification,"EVM, Base",Etherscan,Commercial,https://docs.etherscan.io/,API status,API,,,,,,Planned,2025-09-24,,,,DevRel,"Keys in GitHub Secrets"
-Foundry (forge/cast/anvil),Framework,"EVM, Base",Foundry,Apache-2.0,https://github.com/foundry-rs/foundry,GitHub releases,"foundryup | brew","/usr/local/bin/forge",,,2025-09-24,,,Adopted,2025-09-24,,,"",Security,"Primary toolkit; fuzz/property testing built-in"
-Ganache,Local Node,"EVM, Base","Truffle Suite",MIT,https://github.com/trufflesuite/ganache,GitHub releases,"npm | binary","/usr/local/bin/ganache",,,2025-09-24,,,Deprecated,2025-09-24,LEGACY,Superseded by Anvil,,Dev,
-Halmos,Symbolic Fuzzer,"EVM, Base","a16z / community",MIT,https://github.com/a16z/halmos,GitHub releases,"cargo | docker","/usr/local/bin/halmos",,,2025-09-24,,,Planned,2025-09-24,,,,Security,
-Hardhat,Framework,"EVM, Base","Nomic Foundation",MIT,https://github.com/NomicFoundation/hardhat,npm outdated,npm,"node_modules/.bin/hardhat",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,"Plugins: ethers, deploy, verify, coverage"
-Manticore,Fuzzer/SymExec,"EVM, Base","Trail of Bits",AGPL-3.0,https://github.com/trailofbits/manticore,pip index,"pip | docker","/usr/local/bin/manticore",,,2025-09-24,,,Planned,2025-09-24,,,,Security,
-Medusa,Fuzzer,"EVM, Base",crytic,AGPL-3.0,https://github.com/crytic/medusa,GitHub releases,docker,,,,,,Planned,2025-09-24,,,,Security,
-Mythril,Analyzer/SymExec,"EVM, Base","ConsenSys Diligence",MIT,https://github.com/ConsenSys/mythril,pip index,"pip | docker","/usr/local/bin/myth",,,2025-09-24,,,Planned,2025-09-24,,,,Security,
-Nethermind,Node,"EVM, Base",Nethermind,GPL-3.0,https://github.com/NethermindEth/nethermind,GitHub releases,"binary | docker","/usr/local/bin/nethermind",,,2025-09-24,,,Planned,2025-09-24,,,,Infra,
-OpenZeppelin Contracts,Library,"EVM, Base",OpenZeppelin,MIT,https://github.com/OpenZeppelin/openzeppelin-contracts,GitHub releases,"git submodule | npm","lib/openzeppelin-contracts",,,2025-09-24,,,Adopted,2025-09-24,,,,Dev,
-OpenZeppelin Defender,Ops,"EVM, Base",OpenZeppelin,Commercial,https://defender.openzeppelin.com/,SaaS status,"CLI | API",,,,,,Planned,2025-09-24,,,,Ops,
-Oyente,Analyzer,"EVM, Base",Melonport,MIT,https://github.com/melonproject/oyente,GitHub,pip,,,,,,Deprecated,2025-09-24,LEGACY,,,Security,
-Safe CLI,Ops/Multisig,"EVM, Base",Safe,GPL-3.0,https://github.com/safe-global/safe-cli,GitHub releases,pip,"/usr/local/bin/safe",,,2025-09-24,,,Planned,2025-09-24,,,,Ops,
-Securify,Analyzer,"EVM, Base","ETH Zurich",AGPL-3.0,https://github.com/eth-sri/securify2,GitHub,docker,,,,,,Planned,2025-09-24,,,,Security,
-Slither,Analyzer,"EVM, Base","Crytic/Trail of Bits",AGPL-3.0,https://github.com/crytic/slither,"pip index | GitHub","pip | docker","/usr/local/bin/slither",,,2025-09-24,,,Adopted,2025-09-24,,,,Security,"Static analysis; emits SARIF"
-Solhint,Linter,"EVM, Base",protofire,MIT,https://github.com/protofire/solhint,npm outdated,npm,"node_modules/.bin/solhint",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Solidity Coverage,Coverage,"EVM, Base",sc-forks,MIT,https://github.com/sc-forks/solidity-coverage,npm outdated,npm,"node_modules/.bin/solidity-coverage",,,2025-09-24,,,Planned,2025-09-24,,,,Security,
-Sourcify,Verification,"EVM, Base",Ethereum.org,GPL-3.0,https://github.com/ethereum/sourcify,Service status,"API | docker",,,,,,Planned,2025-09-24,,,,DevRel,"Verification endpoint"
-Tenderly,Debug/Simulate,"EVM, Base",Tenderly,Commercial,https://github.com/Tenderly,SaaS status,"CLI | API",,,,,,Planned,2025-09-24,,,,Dev,
-Truffle,Framework,"EVM, Base","Truffle Suite",MIT,https://github.com/trufflesuite/truffle,npm outdated,npm,"node_modules/.bin/truffle",,,2025-09-24,,,Deprecated,2025-09-24,LEGACY,Superseded by Foundry/Hardhat,,Dev,"Keep for legacy projects only"
-abigen (go-ethereum),Codegen,"EVM, Base","Ethereum Foundation",LGPL-3.0,https://geth.ethereum.org/docs/tools/abigen,GitHub releases,"brew | go install","/usr/local/bin/abigen",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-certora-cli,Formal Verification,"EVM, Base",Certora,Commercial,https://github.com/Certora/certora-cli,GitHub releases,"docker | binary","/usr/local/bin/certora-cli",,,2025-09-24,,,Planned,2025-09-24,,Requires license,,Security,
-geth,Node,"EVM, Base","Ethereum Foundation",LGPL-3.0,https://github.com/ethereum/go-ethereum,GitHub releases,"brew | binary","/usr/local/bin/geth",,,2025-09-24,,,Planned,2025-09-24,,,,Infra,
-solc,Compiler,"EVM, Base",Solidity,GPL-3.0,https://github.com/ethereum/solidity,GitHub releases,"brew | solc-select | docker","/usr/local/bin/solc",,,2025-09-24,,,Adopted,2025-09-24,,,,Build,"Use solc-select to pin versions"
-solc-select,Tooling,"EVM, Base",crytic,MIT,https://github.com/crytic/solc-select,GitHub releases,pip,"/usr/local/bin/solc-select",,,2025-09-24,,,Adopted,2025-09-24,,,,Build,
-near-cli,CLI,NEAR,NEAR,MIT,https://github.com/near/near-cli,GitHub releases,npm,"node_modules/.bin/near",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-near-sdk-rs,SDK,NEAR,NEAR,MIT,https://github.com/near/near-sdk-rs,GitHub,cargo,,,,,,Planned,2025-09-24,,,,Dev,
-Anchor,Framework,Solana,Coral,Apache-2.0,https://github.com/coral-xyz/anchor,GitHub releases,cargo,"/usr/local/bin/anchor",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-SPL Token CLI,CLI,Solana,Solana,Apache-2.0,https://github.com/solana-labs/solana-program-library,GitHub releases,cargo,"/usr/local/bin/spl-token",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Seahorse,Framework,Solana,Seahorse,MIT,https://github.com/rot1024/seahorse,GitHub,pip,"/usr/local/bin/seahorse",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,"Pythonic DSL"
-Solana CLI,CLI,Solana,Solana,Apache-2.0,https://github.com/solana-labs/solana,GitHub releases,"sh installer | brew","/usr/local/bin/solana",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Solana Program Test,Testing,Solana,Solana,Apache-2.0,https://docs.solana.com/,Docs,cargo,,,,,,Planned,2025-09-24,,,,Dev,"Rust test harness"
-Solang,Compiler,Solana,Hyperledger Solang,Apache-2.0,https://github.com/hyperledger/solang,GitHub releases,"cargo | docker","/usr/local/bin/solang",,,2025-09-24,,,Planned,2025-09-24,,,"Solidity -> Solana/Polkadot",Build,
-Cairo 1 / scarb,Compiler/Build,Starknet,StarkWare,Apache-2.0,https://github.com/software-mansion/scarb,GitHub releases,"curl | cargo","/usr/local/bin/scarb",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-katana (dojo),Local Node,Starknet,dojoengine,Apache-2.0,https://github.com/dojoengine/dojo,GitHub releases,cargo,"/usr/local/bin/katana",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-starknet Foundry,Framework,Starknet,"foundry-rs community",MIT,https://github.com/foundry-rs/starknet-foundry,GitHub releases,cargo,"/usr/local/bin/snf",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Substrate Node Template,Framework,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/substrate-developer-hub/substrate-node-template,GitHub releases,cargo,"target/release/node-template",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-cargo-contract,CLI,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/paritytech/cargo-contract,GitHub releases,cargo,"/usr/local/bin/cargo-contract",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-ink!,Smart Contracts,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/paritytech/ink,GitHub releases,cargo,"/usr/local/bin/cargo-contract",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-polkadot,Node,Substrate/Polkadot,Parity,GPL-3.0,https://github.com/paritytech/polkadot,GitHub releases,"cargo | binary","/usr/local/bin/polkadot",,,2025-09-24,,,Planned,2025-09-24,,,,Infra,
-Sui Move,SDK,"Sui (Move)","Mysten Labs",Apache-2.0,https://github.com/MystenLabs/sui,GitHub releases,cargo,,,,,,Planned,2025-09-24,,,,Dev,
-sui-cli,CLI,"Sui (Move)","Mysten Labs",Apache-2.0,https://github.com/MystenLabs/sui,GitHub releases,"brew | binary","/usr/local/bin/sui",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-LIGO,Compiler,Tezos,LIGO,MIT,https://gitlab.com/ligolang/ligo,GitLab releases,"brew | docker","/usr/local/bin/ligo",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-SmartPy,Framework,Tezos,SmartPy,Apache-2.0,https://github.com/SmartPy/smartpy,GitHub releases,"docker | pip","/usr/local/bin/smartpy",,,2025-09-24,,,Planned,2025-09-24,,,,Dev,
-Semgrep,SAST,Agnostic,r2c,LGPL-2.1,https://github.com/returntocorp/semgrep,GitHub releases,"pipx | brew | binary","/usr/local/bin/semgrep",,,,,Planned,,Active,,,,Security,"Solidity + repo-wide SAST"
-OSV-Scanner,Dependency Audit,Agnostic,Google,Apache-2.0,https://github.com/google/osv-scanner,GitHub releases,"brew | binary","/usr/local/bin/osv-scanner",,,,,Planned,,Active,,,,Security,"Advisories across lockfiles"
-Syft,SBOM,Agnostic,Anchore,Apache-2.0,https://github.com/anchore/syft,GitHub releases,"brew | binary | docker","/usr/local/bin/syft",,,,,Planned,,Active,,,,Security,"SBOM generator (pairs w/ Grype)"
-Grype,Vulnerability Scan,Agnostic,Anchore,Apache-2.0,https://github.com/anchore/grype,GitHub releases,"brew | binary | docker","/usr/local/bin/grype",,,,,Planned,,Active,,,,Security,"SBOM/image vuln scan"
-hadolint,Docker Lint,Agnostic,Hadolint,GPL-3.0,https://github.com/hadolint/hadolint,GitHub releases,"brew | binary | docker","/usr/local/bin/hadolint",,,,,Planned,,Active,,,,DevEx,"Dockerfile best-practices"
-actionlint,CI Lint,Agnostic,rhysd,MIT,https://github.com/rhysd/actionlint,GitHub releases,"brew | binary","/usr/local/bin/actionlint",,,,,Planned,,Active,,,,DevEx,"Lint GitHub Actions yaml"
-truffleHog,Secrets Scan,Agnostic,TruffleHog,AGPL-3.0,https://github.com/trufflesecurity/trufflehog,GitHub releases,"brew | binary | docker","/usr/local/bin/trufflehog",,,,,Planned,,Active,,,,Security,"Secrets scanner (complements gitleaks)"
-Scribble,Runtime Verification,EVM,ConsenSys,Apache-2.0,https://github.com/ConsenSys/scribble,GitHub releases,"npm","/usr/local/bin/scribble",,,,,Planned,,Active,,,,Security,"Spec annotations → runtime checks"
-Surya,Contract Graphs,EVM,ConsenSys,MIT,https://github.com/ConsenSys/surya,GitHub releases,"npm","/usr/local/bin/surya",,,,,Planned,,Active,,,,DevEx,"CFG/Inheritance/Call graph"
-DappTools (hevm/seth/dapp),Toolchain,EVM,dapphub,GPL-3.0,https://github.com/dapphub/dapptools,GitHub releases,"nix | binary","/usr/local/bin/hevm",,,,,Planned,,Active,,,,Dev,"Symbolic exec (hevm), tx crafting"
-starknet-devnet,Localnet,Starknet,Shard-Labs,MIT,https://github.com/Shard-Labs/starknet-devnet,GitHub releases,"pipx | docker","/usr/local/bin/starknet-devnet",,,,,Planned,,Active,,,,Infra,"Fast local Starknet for tests"
-wasmd,Localnet,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/wasmd,GitHub releases,"binary | docker","/usr/local/bin/wasmd",,,,,Planned,,Active,,,,Infra,"CosmWasm local chain"
-cosmwasm/rust-optimizer,Build,Cosmos,CosmWasm,Apache-2.0,https://github.com/CosmWasm/rust-optimizer,GitHub releases,"docker","docker://cosmwasm/workspace-optimizer",,,,,Planned,,Active,,,,Build,"Reproducible Wasm builds"
-substrate-contracts-node,Localnet,Substrate/Polkadot,Parity,Apache-2.0,https://github.com/paritytech/substrate-contracts-node,GitHub releases,"binary | docker","/usr/local/bin/substrate-contracts-node",,,,,Planned,,Active,,,,Infra,"ink! local chain"
-# --- Supply chain & provenance
-Trivy,Vulnerability Scan,Agnostic,Aqua Security,Apache-2.0,https://github.com/aquasecurity/trivy,GitHub releases,"brew | binary | docker","/usr/local/bin/trivy",,,,,Planned,,Active,,,,Security,"Containers/filesystem/ SBOM vuln scan"
-pip-audit,Dependency Audit,Agnostic,PyPA,Apache-2.0,https://github.com/pypa/pip-audit,GitHub releases,"pipx | pip","/usr/local/bin/pip-audit",,,,,Planned,,Active,,,,Security,"Python dependency advisories"
-safety,Dependency Audit,Agnostic,PyUp,BSD-3-Clause,https://github.com/pyupio/safety,GitHub releases,"pipx | pip","/usr/local/bin/safety",,,,,Planned,,Active,,,,Security,"Python vuln DB cross-check"
-cargo-audit,Dependency Audit,Agnostic,RustSec,Apache-2.0,https://github.com/rustsec/rustsec/tree/main/cargo-audit,GitHub releases,"cargo","~/.cargo/bin/cargo-audit",,,,,Planned,,Active,,,,Security,"Rust advisories (RustSec)"
-cargo-deny,Policy/Deps,Agnostic,Embark Studios,Apache-2.0,https://github.com/EmbarkStudios/cargo-deny,GitHub releases,"cargo","~/.cargo/bin/cargo-deny",,,,,Planned,,Active,,,,Security,"Rust license/source/versions policy"
-govulncheck,Dependency Audit,Agnostic,Go Team,BSD-3-Clause,https://go.dev/security/vuln,Releases,"go install","~/go/bin/govulncheck",,,,,Planned,,Active,,,,Security,"Go vulnerability scanner"
-cosign,Signing/Attest,Agnostic,Sigstore,Apache-2.0,https://github.com/sigstore/cosign,GitHub releases,"brew | binary | docker","/usr/local/bin/cosign",,,,,Planned,,Active,,,,Security,"Image/artifact signing + attestations"
-slsa-verifier,Provenance Verify,Agnostic,SLSA,Apache-2.0,https://github.com/slsa-framework/slsa-verifier,GitHub releases,"brew | binary","/usr/local/bin/slsa-verifier",,,,,Planned,,Active,,,,Security,"Verify SLSA provenance"
-in-toto,Provenance,Agnostic,in-toto,Apache-2.0,https://github.com/in-toto/in-toto,GitHub releases,"pipx | pip","/usr/local/bin/in-toto-run",,,,,Planned,,Active,,,,Security,"Software supply chain framework"
-lockfile-lint,Dependency Policy,Agnostic,lirantal,MIT,https://github.com/lirantal/lockfile-lint,GitHub releases,"npm","/usr/local/bin/lockfile-lint",,,,,Planned,,Active,,,,Security,"Enforce registries/https in lockfiles"
-shellcheck,Shell Lint,Agnostic,koalaman,GPL-3.0,https://github.com/koalaman/shellcheck,GitHub releases,"brew | binary | docker","/usr/local/bin/shellcheck",,,,,Planned,,Active,,,,DevEx,"Detect shell script pitfalls"
-shfmt,Shell Format,Agnostic,mvdan,BSD-3-Clause,https://github.com/mvdan/sh,GitHub releases,"brew | binary","/usr/local/bin/shfmt",,,,,Planned,,Active,,,,DevEx,"Idempotent shell formatting"
-pre-commit,Hooks,Agnostic,pre-commit,BSD-2-Clause,https://github.com/pre-commit/pre-commit,GitHub releases,"pipx | pip | brew","/usr/local/bin/pre-commit",,,,,Planned,,Active,,,,DevEx,"Run all the linters locally"
-Dockle,Container Lint,Agnostic,goodwithtech,Apache-2.0,https://github.com/goodwithtech/dockle,GitHub releases,"brew | binary | docker","/usr/local/bin/dockle",,,,,Planned,,Active,,,,DevEx,"CIS checks for Docker images"
-
-# --- ZK toolchain (optional, but recommended)
-circom,ZK Circuits,EVM/ZK,iden3,MIT,https://github.com/iden3/circom,GitHub releases,"npm | build","/usr/local/bin/circom",,,,,Planned,,Active,,,"ZK","Circuit compiler"
-snarkjs,ZK Proofs,EVM/ZK,iden3,LGPL-3.0,https://github.com/iden3/snarkjs,GitHub releases,"npm","/usr/local/bin/snarkjs",,,,,Planned,,Active,,,"ZK","Groth16 tooling"
-rapidsnark,ZK Proofs,EVM/ZK,iden3,MIT,https://github.com/iden3/rapidsnark,GitHub releases,"build | docker","/usr/local/bin/rapidsnark",,,,,Planned,,Active,,,"ZK","Fast prover"
-gnark,ZK Proofs,EVM/ZK,ConsenSys,Apache-2.0,https://github.com/ConsenSys/gnark,GitHub releases,"go install","~/go/bin/gnark",,,,,Planned,,Active,,,"ZK","Go zkSNARK library"
-halo2,ZK Proofs,EVM/ZK,Privacy&Scaling Explorations,Apache-2.0,https://github.com/privacy-scaling-explorations/halo2,GitHub releases,"cargo","~/.cargo/bin/halo2",,,,,Planned,,Active,,,"ZK","PLONKish prover circuits"
-
-# --- Chain sandboxes / DX
-Flextesa,Localnet,Tezos,Nomadic Labs,MIT,https://gitlab.com/tezos/flextesa,GitLab releases,"docker | opam","/usr/local/bin/flextesa",,,,,Planned,,Active,,,,Infra,"Tezos sandbox (docker)"
-Algokit,Dev Toolkit,Algorand,Algorand Foundation,Apache-2.0,https://github.com/algorandfoundation/algokit,GitHub releases,"brew | pipx","/usr/local/bin/algokit",,,,,Planned,,Active,,,,Dev,"Algorand project scaffolding + test"
-Algorand Sandbox,Localnet,Algorand,Algorand,MIT,https://github.com/algorand/sandbox,GitHub releases,"docker","docker://algorand/sandbox",,,,,Planned,,Active,,,,Infra,"Algorand docker localnet"
-NEAR Sandbox,Localnet,NEAR,NEAR,Apache-2.0,https://github.com/near/sandbox,GitHub releases,"docker","docker://near/sandbox",,,,,Planned,,Active,,,,Infra,"NEAR local devnet"
-starkli,CLI,Starknet,xJonathan (community),MIT,https://github.com/xJonathan/starkli,GitHub releases,"brew | binary","/usr/local/bin/starkli",,,,,Planned,,Active,,,,Dev,"Lightweight Starknet CLI"
-aptos-node (localnet),Localnet,Aptos (Move),Aptos Labs,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,"docker | source","/usr/local/bin/aptos-node",,,,,Planned,,Active,,,,Infra,"Spin up local Aptos"
-# --- Supply chain & provenance
-Trivy,Vulnerability Scan,Agnostic,Aqua Security,Apache-2.0,https://github.com/aquasecurity/trivy,GitHub releases,"brew | binary | docker","/usr/local/bin/trivy",,,,,Planned,,Active,,,,Security,"Containers/filesystem/ SBOM vuln scan"
-pip-audit,Dependency Audit,Agnostic,PyPA,Apache-2.0,https://github.com/pypa/pip-audit,GitHub releases,"pipx | pip","/usr/local/bin/pip-audit",,,,,Planned,,Active,,,,Security,"Python dependency advisories"
-safety,Dependency Audit,Agnostic,PyUp,BSD-3-Clause,https://github.com/pyupio/safety,GitHub releases,"pipx | pip","/usr/local/bin/safety",,,,,Planned,,Active,,,,Security,"Python vuln DB cross-check"
-cargo-audit,Dependency Audit,Agnostic,RustSec,Apache-2.0,https://github.com/rustsec/rustsec/tree/main/cargo-audit,GitHub releases,"cargo","~/.cargo/bin/cargo-audit",,,,,Planned,,Active,,,,Security,"Rust advisories (RustSec)"
-cargo-deny,Policy/Deps,Agnostic,Embark Studios,Apache-2.0,https://github.com/EmbarkStudios/cargo-deny,GitHub releases,"cargo","~/.cargo/bin/cargo-deny",,,,,Planned,,Active,,,,Security,"Rust license/source/versions policy"
-govulncheck,Dependency Audit,Agnostic,Go Team,BSD-3-Clause,https://go.dev/security/vuln,Releases,"go install","~/go/bin/govulncheck",,,,,Planned,,Active,,,,Security,"Go vulnerability scanner"
-cosign,Signing/Attest,Agnostic,Sigstore,Apache-2.0,https://github.com/sigstore/cosign,GitHub releases,"brew | binary | docker","/usr/local/bin/cosign",,,,,Planned,,Active,,,,Security,"Image/artifact signing + attestations"
-slsa-verifier,Provenance Verify,Agnostic,SLSA,Apache-2.0,https://github.com/slsa-framework/slsa-verifier,GitHub releases,"brew | binary","/usr/local/bin/slsa-verifier",,,,,Planned,,Active,,,,Security,"Verify SLSA provenance"
-in-toto,Provenance,Agnostic,in-toto,Apache-2.0,https://github.com/in-toto/in-toto,GitHub releases,"pipx | pip","/usr/local/bin/in-toto-run",,,,,Planned,,Active,,,,Security,"Software supply chain framework"
-lockfile-lint,Dependency Policy,Agnostic,lirantal,MIT,https://github.com/lirantal/lockfile-lint,GitHub releases,"npm","/usr/local/bin/lockfile-lint",,,,,Planned,,Active,,,,Security,"Enforce registries/https in lockfiles"
-shellcheck,Shell Lint,Agnostic,koalaman,GPL-3.0,https://github.com/koalaman/shellcheck,GitHub releases,"brew | binary | docker","/usr/local/bin/shellcheck",,,,,Planned,,Active,,,,DevEx,"Detect shell script pitfalls"
-shfmt,Shell Format,Agnostic,mvdan,BSD-3-Clause,https://github.com/mvdan/sh,GitHub releases,"brew | binary","/usr/local/bin/shfmt",,,,,Planned,,Active,,,,DevEx,"Idempotent shell formatting"
-pre-commit,Hooks,Agnostic,pre-commit,BSD-2-Clause,https://github.com/pre-commit/pre-commit,GitHub releases,"pipx | pip | brew","/usr/local/bin/pre-commit",,,,,Planned,,Active,,,,DevEx,"Run all the linters locally"
-Dockle,Container Lint,Agnostic,goodwithtech,Apache-2.0,https://github.com/goodwithtech/dockle,GitHub releases,"brew | binary | docker","/usr/local/bin/dockle",,,,,Planned,,Active,,,,DevEx,"CIS checks for Docker images"
-
-# --- ZK toolchain (optional, but recommended)
-circom,ZK Circuits,EVM/ZK,iden3,MIT,https://github.com/iden3/circom,GitHub releases,"npm | build","/usr/local/bin/circom",,,,,Planned,,Active,,,"ZK","Circuit compiler"
-snarkjs,ZK Proofs,EVM/ZK,iden3,LGPL-3.0,https://github.com/iden3/snarkjs,GitHub releases,"npm","/usr/local/bin/snarkjs",,,,,Planned,,Active,,,"ZK","Groth16 tooling"
-rapidsnark,ZK Proofs,EVM/ZK,iden3,MIT,https://github.com/iden3/rapidsnark,GitHub releases,"build | docker","/usr/local/bin/rapidsnark",,,,,Planned,,Active,,,"ZK","Fast prover"
-gnark,ZK Proofs,EVM/ZK,ConsenSys,Apache-2.0,https://github.com/ConsenSys/gnark,GitHub releases,"go install","~/go/bin/gnark",,,,,Planned,,Active,,,"ZK","Go zkSNARK library"
-halo2,ZK Proofs,EVM/ZK,Privacy&Scaling Explorations,Apache-2.0,https://github.com/privacy-scaling-explorations/halo2,GitHub releases,"cargo","~/.cargo/bin/halo2",,,,,Planned,,Active,,,"ZK","PLONKish prover circuits"
-
-# --- Chain sandboxes / DX
-Flextesa,Localnet,Tezos,Nomadic Labs,MIT,https://gitlab.com/tezos/flextesa,GitLab releases,"docker | opam","/usr/local/bin/flextesa",,,,,Planned,,Active,,,,Infra,"Tezos sandbox (docker)"
-Algokit,Dev Toolkit,Algorand,Algorand Foundation,Apache-2.0,https://github.com/algorandfoundation/algokit,GitHub releases,"brew | pipx","/usr/local/bin/algokit",,,,,Planned,,Active,,,,Dev,"Algorand project scaffolding + test"
-Algorand Sandbox,Localnet,Algorand,Algorand,MIT,https://github.com/algorand/sandbox,GitHub releases,"docker","docker://algorand/sandbox",,,,,Planned,,Active,,,,Infra,"Algorand docker localnet"
-NEAR Sandbox,Localnet,NEAR,NEAR,Apache-2.0,https://github.com/near/sandbox,GitHub releases,"docker","docker://near/sandbox",,,,,Planned,,Active,,,,Infra,"NEAR local devnet"
-starkli,CLI,Starknet,xJonathan (community),MIT,https://github.com/xJonathan/starkli,GitHub releases,"brew | binary","/usr/local/bin/starkli",,,,,Planned,,Active,,,,Dev,"Lightweight Starknet CLI"
-aptos-node (localnet),Localnet,Aptos (Move),Aptos Labs,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,"docker | source","/usr/local/bin/aptos-node",,,,,Planned,,Active,,,,Infra,"Spin up local Aptos"
-# --- Supply chain & provenance
-Trivy,Vulnerability Scan,Agnostic,Aqua Security,Apache-2.0,https://github.com/aquasecurity/trivy,GitHub releases,"brew | binary | docker","/usr/local/bin/trivy",,,,,Planned,,Active,,,,Security,"Containers/filesystem/ SBOM vuln scan"
-pip-audit,Dependency Audit,Agnostic,PyPA,Apache-2.0,https://github.com/pypa/pip-audit,GitHub releases,"pipx | pip","/usr/local/bin/pip-audit",,,,,Planned,,Active,,,,Security,"Python dependency advisories"
-safety,Dependency Audit,Agnostic,PyUp,BSD-3-Clause,https://github.com/pyupio/safety,GitHub releases,"pipx | pip","/usr/local/bin/safety",,,,,Planned,,Active,,,,Security,"Python vuln DB cross-check"
-cargo-audit,Dependency Audit,Agnostic,RustSec,Apache-2.0,https://github.com/rustsec/rustsec/tree/main/cargo-audit,GitHub releases,"cargo","~/.cargo/bin/cargo-audit",,,,,Planned,,Active,,,,Security,"Rust advisories (RustSec)"
-cargo-deny,Policy/Deps,Agnostic,Embark Studios,Apache-2.0,https://github.com/EmbarkStudios/cargo-deny,GitHub releases,"cargo","~/.cargo/bin/cargo-deny",,,,,Planned,,Active,,,,Security,"Rust license/source/versions policy"
-govulncheck,Dependency Audit,Agnostic,Go Team,BSD-3-Clause,https://go.dev/security/vuln,Releases,"go install","~/go/bin/govulncheck",,,,,Planned,,Active,,,,Security,"Go vulnerability scanner"
-cosign,Signing/Attest,Agnostic,Sigstore,Apache-2.0,https://github.com/sigstore/cosign,GitHub releases,"brew | binary | docker","/usr/local/bin/cosign",,,,,Planned,,Active,,,,Security,"Image/artifact signing + attestations"
-slsa-verifier,Provenance Verify,Agnostic,SLSA,Apache-2.0,https://github.com/slsa-framework/slsa-verifier,GitHub releases,"brew | binary","/usr/local/bin/slsa-verifier",,,,,Planned,,Active,,,,Security,"Verify SLSA provenance"
-in-toto,Provenance,Agnostic,in-toto,Apache-2.0,https://github.com/in-toto/in-toto,GitHub releases,"pipx | pip","/usr/local/bin/in-toto-run",,,,,Planned,,Active,,,,Security,"Software supply chain framework"
-lockfile-lint,Dependency Policy,Agnostic,lirantal,MIT,https://github.com/lirantal/lockfile-lint,GitHub releases,"npm","/usr/local/bin/lockfile-lint",,,,,Planned,,Active,,,,Security,"Enforce registries/https in lockfiles"
-shellcheck,Shell Lint,Agnostic,koalaman,GPL-3.0,https://github.com/koalaman/shellcheck,GitHub releases,"brew | binary | docker","/usr/local/bin/shellcheck",,,,,Planned,,Active,,,,DevEx,"Detect shell script pitfalls"
-shfmt,Shell Format,Agnostic,mvdan,BSD-3-Clause,https://github.com/mvdan/sh,GitHub releases,"brew | binary","/usr/local/bin/shfmt",,,,,Planned,,Active,,,,DevEx,"Idempotent shell formatting"
-pre-commit,Hooks,Agnostic,pre-commit,BSD-2-Clause,https://github.com/pre-commit/pre-commit,GitHub releases,"pipx | pip | brew","/usr/local/bin/pre-commit",,,,,Planned,,Active,,,,DevEx,"Run all the linters locally"
-Dockle,Container Lint,Agnostic,goodwithtech,Apache-2.0,https://github.com/goodwithtech/dockle,GitHub releases,"brew | binary | docker","/usr/local/bin/dockle",,,,,Planned,,Active,,,,DevEx,"CIS checks for Docker images"
-
-# --- ZK toolchain (optional, but recommended)
-circom,ZK Circuits,EVM/ZK,iden3,MIT,https://github.com/iden3/circom,GitHub releases,"npm | build","/usr/local/bin/circom",,,,,Planned,,Active,,,"ZK","Circuit compiler"
-snarkjs,ZK Proofs,EVM/ZK,iden3,LGPL-3.0,https://github.com/iden3/snarkjs,GitHub releases,"npm","/usr/local/bin/snarkjs",,,,,Planned,,Active,,,"ZK","Groth16 tooling"
-rapidsnark,ZK Proofs,EVM/ZK,iden3,MIT,https://github.com/iden3/rapidsnark,GitHub releases,"build | docker","/usr/local/bin/rapidsnark",,,,,Planned,,Active,,,"ZK","Fast prover"
-gnark,ZK Proofs,EVM/ZK,ConsenSys,Apache-2.0,https://github.com/ConsenSys/gnark,GitHub releases,"go install","~/go/bin/gnark",,,,,Planned,,Active,,,"ZK","Go zkSNARK library"
-halo2,ZK Proofs,EVM/ZK,Privacy&Scaling Explorations,Apache-2.0,https://github.com/privacy-scaling-explorations/halo2,GitHub releases,"cargo","~/.cargo/bin/halo2",,,,,Planned,,Active,,,"ZK","PLONKish prover circuits"
-
-# --- Chain sandboxes / DX
-Flextesa,Localnet,Tezos,Nomadic Labs,MIT,https://gitlab.com/tezos/flextesa,GitLab releases,"docker | opam","/usr/local/bin/flextesa",,,,,Planned,,Active,,,,Infra,"Tezos sandbox (docker)"
-Algokit,Dev Toolkit,Algorand,Algorand Foundation,Apache-2.0,https://github.com/algorandfoundation/algokit,GitHub releases,"brew | pipx","/usr/local/bin/algokit",,,,,Planned,,Active,,,,Dev,"Algorand project scaffolding + test"
-Algorand Sandbox,Localnet,Algorand,Algorand,MIT,https://github.com/algorand/sandbox,GitHub releases,"docker","docker://algorand/sandbox",,,,,Planned,,Active,,,,Infra,"Algorand docker localnet"
-NEAR Sandbox,Localnet,NEAR,NEAR,Apache-2.0,https://github.com/near/sandbox,GitHub releases,"docker","docker://near/sandbox",,,,,Planned,,Active,,,,Infra,"NEAR local devnet"
-starkli,CLI,Starknet,xJonathan (community),MIT,https://github.com/xJonathan/starkli,GitHub releases,"brew | binary","/usr/local/bin/starkli",,,,,Planned,,Active,,,,Dev,"Lightweight Starknet CLI"
-aptos-node (localnet),Localnet,Aptos (Move),Aptos Labs,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,"docker | source","/usr/local/bin/aptos-node",,,,,Planned,,Active,,,,Infra,"Spin up local Aptos"
+Tool,Category,Chain,Vendor,License,RepoURL,MonitorMethod,InstallMethod,BinaryPath,Version,FirstSeen,AdoptedOn,LastUsed,LastUpdateCheck,Status,StatusOn,ReasonCode,Reason,ReplacedBy,Owner,Notes,Repo
+Docker,Container,Agnostic,Docker,Apache-2.0,https://github.com/docker/cli,brew update,brew | pkg,/usr/local/bin/docker,,,2025-09-24,,,Adopted,2025-09-24,,,,Infra,,
+GitHub Actions,CI,Agnostic,GitHub,Proprietary,https://docs.github.com/actions,n/a,n/a,n/a,,,,,,Adopted,2025-09-24,,,,DevOps,Echidna + Slither workflow,
+gh (GitHub CLI),CLI,Agnostic,GitHub,MIT,https://github.com/cli/cli,brew update,brew,/usr/local/bin/gh,,,2025-09-24,,,Adopted,2025-09-24,,,,DevOps,Used for repo create/push,
+git,VCS,Agnostic,Git,GPL-2.0,https://git-scm.com/,brew update,brew,/usr/local/bin/git,,,2025-09-24,,,Adopted,2025-09-24,,,,DevOps,,
+gitleaks,Secrets,Agnostic,Gitleaks,MIT,https://github.com/gitleaks/gitleaks,GitHub releases,brew | docker,/usr/local/bin/gitleaks,,,2025-09-24,,,Adopted,2025-09-24,,,,Security,,
+PyTeal,DSL,Algorand,Algorand,MIT,https://github.com/algorand/pyteal,pip index,pip,/usr/local/bin/pyteal,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+goal,CLI,Algorand,Algorand,MIT,https://github.com/algorand/go-algorand,GitHub releases,binary | brew,/usr/local/bin/goal,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Move Prover,Formal Verification,Aptos (Move),Move,Apache-2.0,https://github.com/move-language/move,GitHub releases,cargo | docker,,,,,,Planned,2025-09-24,,,,Security,,,https://github.com/move-language/move
+aptos-cli,CLI,Aptos (Move),Aptos,Apache-2.0,https://github.com/aptos-labs/aptos-core,GitHub releases,brew | binary,/usr/local/bin/aptos,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Cosmos SDK,Framework,Cosmos,Cosmos,Apache-2.0,https://github.com/cosmos/cosmos-sdk,GitHub releases,go install,$GOPATH/bin,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Gaiad,Node,Cosmos,Cosmos,Apache-2.0,https://github.com/cosmos/gaia,GitHub releases,binary | docker,/usr/local/bin/gaiad,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,
+Hermes (IBC),Relayer,Cosmos,Informal,Apache-2.0,https://github.com/informalsystems/hermes,GitHub releases,brew | cargo,/usr/local/bin/hermes,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,
+Ignite CLI,Scaffold/CLI,Cosmos,Ignite,Apache-2.0,https://github.com/ignite/cli,GitHub releases,brew | go install,/usr/local/bin/ignite,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Anvil (Foundry),Local Node,"EVM, Base",Foundry,Apache-2.0,https://github.com/foundry-rs/foundry,GitHub releases,foundryup,/usr/local/bin/anvil,,,2025-09-24,,,Adopted,2025-09-24,,,,Dev,,
+ApeWorx (Ape),Framework,"EVM, Base",ApeWorx,Apache-2.0,https://github.com/ApeWorx/ape,pip index,pip,/usr/local/bin/ape,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,Pythonic framework,
+Brownie,Framework,"EVM, Base",eth-brownie,MIT,https://github.com/eth-brownie/brownie,pip index,pip,/usr/local/bin/brownie,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Echidna,Fuzzer,"EVM, Base",Crytic/Trail of Bits,AGPL-3.0,https://github.com/crytic/echidna,GitHub releases,docker | cabal,docker://ghcr.io/crytic/echidna/echidna:latest,,,2025-09-24,,,Adopted,2025-09-24,,,,Security,Property-based fuzzing; used in Selfie harness; pinned solc 0.6.12,
+Erigon,Node,"EVM, Base",Erigon,GPL-3.0,https://github.com/ledgerwatch/erigon,GitHub releases,binary | docker,,,,,,Planned,2025-09-24,,,,Infra,,,
+Etherscan API,Verification,"EVM, Base",Etherscan,Commercial,https://docs.etherscan.io/,API status,API,,,,,,Planned,2025-09-24,,,,DevRel,Keys in GitHub Secrets,,
+Foundry (forge/cast/anvil),Framework,"EVM, Base",Foundry,Apache-2.0,https://github.com/foundry-rs/foundry,GitHub releases,foundryup | brew,/usr/local/bin/forge,,,2025-09-24,,,Adopted,2025-09-24,,,,Security,Primary toolkit; fuzz/property testing built-in,
+Ganache,Local Node,"EVM, Base",Truffle Suite,MIT,https://github.com/trufflesuite/ganache,GitHub releases,npm | binary,/usr/local/bin/ganache,,,2025-09-24,,,Deprecated,2025-09-24,LEGACY,Superseded by Anvil,,Dev,,https://github.com/trufflesuite/ganache
+Halmos,Symbolic Fuzzer,"EVM, Base",a16z / community,MIT,https://github.com/a16z/halmos,GitHub releases,cargo | docker,/usr/local/bin/halmos,,,2025-09-24,,,Planned,2025-09-24,,,,Security,,
+Hardhat,Framework,"EVM, Base",Nomic Foundation,MIT,https://github.com/NomicFoundation/hardhat,npm outdated,npm,node_modules/.bin/hardhat,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,"Plugins: ethers, deploy, verify, coverage",
+Manticore,Fuzzer/SymExec,"EVM, Base",Trail of Bits,AGPL-3.0,https://github.com/trailofbits/manticore,pip index,pip | docker,/usr/local/bin/manticore,,,2025-09-24,,,Planned,2025-09-24,,,,Security,,
+Medusa,Fuzzer,"EVM, Base",crytic,AGPL-3.0,https://github.com/crytic/medusa,GitHub releases,docker,,,,,,Planned,2025-09-24,,,,Security,,,
+Mythril,Analyzer/SymExec,"EVM, Base",ConsenSys Diligence,MIT,https://github.com/ConsenSys/mythril,pip index,pip | docker,/usr/local/bin/myth,,,2025-09-24,,,Planned,2025-09-24,,,,Security,,
+Nethermind,Node,"EVM, Base",Nethermind,GPL-3.0,https://github.com/NethermindEth/nethermind,GitHub releases,binary | docker,/usr/local/bin/nethermind,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,
+OpenZeppelin Contracts,Library,"EVM, Base",OpenZeppelin,MIT,https://github.com/OpenZeppelin/openzeppelin-contracts,GitHub releases,git submodule | npm,lib/openzeppelin-contracts,,,2025-09-24,,,Adopted,2025-09-24,,,,Dev,,
+OpenZeppelin Defender,Ops,"EVM, Base",OpenZeppelin,Commercial,https://defender.openzeppelin.com/,SaaS status,CLI | API,,,,,,Planned,2025-09-24,,,,Ops,,,
+Oyente,Analyzer,"EVM, Base",Melonport,MIT,https://github.com/melonproject/oyente,GitHub,pip,,,,,,Deprecated,2025-09-24,LEGACY,,,Security,,,https://github.com/melonproject/oyente
+Safe CLI,Ops/Multisig,"EVM, Base",Safe,GPL-3.0,https://github.com/safe-global/safe-cli,GitHub releases,pip,/usr/local/bin/safe,,,2025-09-24,,,Planned,2025-09-24,,,,Ops,,
+Securify,Analyzer,"EVM, Base",ETH Zurich,AGPL-3.0,https://github.com/eth-sri/securify2,GitHub,docker,,,,,,Planned,2025-09-24,,,,Security,,,
+Slither,Analyzer,"EVM, Base",Crytic/Trail of Bits,AGPL-3.0,https://github.com/crytic/slither,pip index | GitHub,pip | docker,/usr/local/bin/slither,,,2025-09-24,,,Adopted,2025-09-24,,,,Security,Static analysis; emits SARIF,
+Solhint,Linter,"EVM, Base",protofire,MIT,https://github.com/protofire/solhint,npm outdated,npm,node_modules/.bin/solhint,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+Solidity Coverage,Coverage,"EVM, Base",sc-forks,MIT,https://github.com/sc-forks/solidity-coverage,npm outdated,npm,node_modules/.bin/solidity-coverage,,,2025-09-24,,,Planned,2025-09-24,,,,Security,,
+Sourcify,Verification,"EVM, Base",Ethereum.org,GPL-3.0,https://github.com/ethereum/sourcify,Service status,API | docker,,,,,,Planned,2025-09-24,,,,DevRel,Verification endpoint,,
+Tenderly,Debug/Simulate,"EVM, Base",Tenderly,Commercial,https://github.com/Tenderly,SaaS status,CLI | API,,,,,,Planned,2025-09-24,,,,Dev,,,
+Truffle,Framework,"EVM, Base",Truffle Suite,MIT,https://github.com/trufflesuite/truffle,npm outdated,npm,node_modules/.bin/truffle,,,2025-09-24,,,Deprecated,2025-09-24,LEGACY,Superseded by Foundry/Hardhat,,Dev,Keep for legacy projects only,https://github.com/trufflesuite/truffle
+abigen (go-ethereum),Codegen,"EVM, Base",Ethereum Foundation,LGPL-3.0,https://geth.ethereum.org/docs/tools/abigen,GitHub releases,brew | go install,/usr/local/bin/abigen,,,2025-09-24,,,Planned,2025-09-24,,,,Dev,,
+certora-cli,Formal Verification,"EVM, Base",Certora,Commercial,https://github.com/Certora/certora-cli,GitHub releases,docker | binary,/usr/local/bin/certora-cli,,,2025-09-24,,,Planned,2025-09-24,,Requires license,,Security,,
+geth,Node,"EVM, Base",Ethereum Foundation,LGPL-3.0,https://github.com/ethereum/go-ethereum,GitHub releases,brew | binary,/usr/local/bin/geth,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,
+solc,Compiler,"EVM, Base",Solidity,GPL-3.0,https://github.com/ethereum/solidity,GitHub releases,brew | solc-select | docker,/usr/local/bin/solc,,,2025-09-24,,,Adopted,2025-09-24,,,,Build,Use solc-select to pin versions,
+solc-select,Tooling,"EVM, Base",crytic,MIT,https://github.com/crytic/solc-select,GitHub releases,pip,/usr/local/bin/solc-select,,,2025-09-24,,,Adopted,2025-09-24,,,,Build,,
