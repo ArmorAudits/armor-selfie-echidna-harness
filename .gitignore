@@ -34,3 +34,4 @@ mcore_selfie/
 crytic-export/
 echidna_results/
 artifacts/
+.envrc
