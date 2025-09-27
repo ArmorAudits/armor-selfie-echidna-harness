@@ -1,7 +1,7 @@
 # Armor Audits — Security Review (Draft)
 
-**Project:** {{PROJECT}}  
-**Commit:** {{COMMIT}}  
+**Project:** {{PROJECT}}
+**Commit:** {{COMMIT}}
 **Date:** {{DATE}}
 
 ## Executive Summary

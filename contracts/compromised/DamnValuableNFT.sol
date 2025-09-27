@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 contract DamnValuableNFT is ERC721, AccessControl {
 
     using Counters for Counters.Counter;
-    
+
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
@@ -21,13 +21,13 @@ contract DamnValuableNFT is ERC721, AccessControl {
 
     function mint(address to) external returns (uint256) {
         require(hasRole(MINTER_ROLE, msg.sender), "Forbidden");
-        
+
         // Increment ID and issue new NFT. Note that ID starts at 1.
         nonce.increment();
 
         uint256 tokenId = nonce.current();
         _safeMint(to, tokenId);
-        
+
         return tokenId;
     }
 
