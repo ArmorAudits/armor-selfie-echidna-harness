@@ -79,7 +79,7 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Nethermind | Node | Nethermind | [NethermindEth/nethermind](https://github.com/NethermindEth/nethermind) |
 | OpenZeppelin Defender | Ops | OpenZeppelin | [OpenZeppelin/defender-sdk](https://github.com/OpenZeppelin/defender-sdk) |
 | Safe CLI | Ops/Multisig | Safe | [safe-global/safe-cli](https://github.com/safe-global/safe-cli) |
-| Halmos | Symbolic Fuzzer | a16z / community | [certora/halmos](https://github.com/certora/halmos) |
+| Halmos | Symbolic Fuzzer | a16z / community | - |
 | solc-select | Tooling | crytic | [crytic/solc-select](https://github.com/crytic/solc-select) |
 | Etherscan API | Verification | Etherscan | - |
 | Sourcify | Verification | Ethereum.org | [ethereum/sourcify](https://github.com/ethereum/sourcify) |
