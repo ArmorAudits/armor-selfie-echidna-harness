@@ -1,0 +1,9 @@
+name-template: 'Armor Audit v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+categories:
+  - title: '🚨 Findings'
+    labels: ['bug','security','finding']
+  - title: '🧪 Testing'
+    labels: ['test','coverage']
+  - title: '🔧 CI/CD'
+    labels: ['ci']
