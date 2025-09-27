@@ -1,0 +1,31 @@
+name: Slither Gate
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 7 * * 1"  # Mon 07:00 UTC
+jobs:
+  slither:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Slither
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install slither-analyzer
+      - name: Run Slither (fail on high)
+        continue-on-error: false
+        run: |
+          slither . --compile-force-framework foundry --ignore-compile \
+            --detect-all --json artifacts/slither.json || EXIT=$?
+          # Fail on high severity
+          if jq -e '.results.detectors[] | select(.impact=="High")' artifacts/slither.json >/dev/null 2>&1; then
+            echo "High severity finding(s) detected"; exit 1
+          fi
+          exit ${EXIT:-0}
+      - name: Upload Slither JSON
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: slither-json
+          path: artifacts/slither.json
