@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/ArmorAudits/armor-selfie-echidna-harness/branch/main/graph/badge.svg)](https://codecov.io/gh/ArmorAudits/armor-selfie-echidna-harness)
+
 [![Armor Audit](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/armor-audit.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/armor-audit.yml)
 [![Security Monitor](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/security-monitor.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/security-monitor.yml)
 [![Slither Gate](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/slither-gate.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/slither-gate.yml)
