@@ -69,3 +69,23 @@
 | Syft | anchore/syft | - | - | - | no |
 | Grype | anchore/grype | - | - | - | no |
 | GitHub CLI (gh) | cli/cli | - | - | - | no |
+| Hyperledger Besu | hyperledger/besu | - | - | - | no |
+| Prysm (Consensus) | prysmaticlabs/prysm | - | - | - | no |
+| Lighthouse (Consensus) | sigp/lighthouse | - | - | - | no |
+| Teku (Consensus) | ConsenSys/teku | - | - | - | no |
+| Nimbus (Consensus) | status-im/nimbus-eth2 | - | - | - | no |
+| Dapptools | dapphub/dapptools | - | - | - | no |
+| hevm | dapphub/hevm | - | - | no longer supported (archived) | YES |
+| Circom | iden3/circom | - | - | - | no |
+| snarkjs | iden3/snarkjs | - | - | - | no |
+| ZoKrates | ZoKrates/ZoKrates | - | - | - | no |
+| Bitcoin Core | bitcoin/bitcoin | - | - | - | no |
+| NEAR CLI | near/near-cli | - | - | no longer supported (archived) | YES |
+| Octez (Tezos) | tezos/tezos | - | - | - | no |
+| LigoLang | ligolang/ligo | - | - | - | no |
+| SmartPy | SmartPy/SmartPy | - | - | repo not found | YES |
+| Flow CLI | onflow/flow-cli | - | - | - | no |
+| AvalancheGo | ava-labs/avalanchego | - | - | - | no |
+| BSC (BNB Chain) | bnb-chain/bsc | - | - | - | no |
+| Polygon Edge | 0xPolygon/polygon-edge | - | - | no longer supported (archived) | YES |
+| toncli | ton-community/toncli | - | - | repo not found | YES |

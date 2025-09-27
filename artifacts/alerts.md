@@ -1,8 +1,12 @@
-# Tool Monitor Alerts — 2025-09-27T05:07:12Z
+# Tool Monitor Alerts — 2025-09-27T05:10:43Z
 
 ## Quarantined
 
-(none)
+- **hevm** — no longer supported (archived)
+- **NEAR CLI** — no longer supported (archived)
+- **SmartPy** — repo not found
+- **Polygon Edge** — no longer supported (archived)
+- **toncli** — repo not found
 
 ## Allowed (archived)
 

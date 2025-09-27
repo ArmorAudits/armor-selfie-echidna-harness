@@ -26,6 +26,24 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | aptos-cli | CLI | Aptos | [aptos-labs/aptos-core](https://github.com/aptos-labs/aptos-core) |
 | Move Prover | Formal Verification | Move | [link](https://github.com/move-language/move) |
 
+## Avalanche
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| AvalancheGo | Node | Ava Labs | [ava-labs/avalanchego](https://github.com/ava-labs/avalanchego) |
+
+## Bitcoin
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Bitcoin Core | Node | Bitcoin Core | [bitcoin/bitcoin](https://github.com/bitcoin/bitcoin) |
+
+## BNB Chain
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| BSC (BNB Chain) | Node | BNB Chain | [bnb-chain/bsc](https://github.com/bnb-chain/bsc) |
+
 ## Cosmos
 
 | Tool | Category | Vendor | Repo |
@@ -42,6 +60,18 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Syft | sbom | anchore | [anchore/syft](https://github.com/anchore/syft) |
 | Grype | vuln-scan | anchore | [anchore/grype](https://github.com/anchore/grype) |
 | trivy | vuln-scan | aquasecurity | [aquasecurity/trivy](https://github.com/aquasecurity/trivy) |
+
+## Ethereum
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Dapptools | Dev | DappHub | [dapphub/dapptools](https://github.com/dapphub/dapptools) |
+| hevm | Dev | DappHub | [dapphub/hevm](https://github.com/dapphub/hevm) |
+| Hyperledger Besu | Node | Hyperledger | [hyperledger/besu](https://github.com/hyperledger/besu) |
+| Lighthouse (Consensus) | Node | Sigma Prime | [sigp/lighthouse](https://github.com/sigp/lighthouse) |
+| Nimbus (Consensus) | Node | Status | [status-im/nimbus-eth2](https://github.com/status-im/nimbus-eth2) |
+| Prysm (Consensus) | Node | Prysmatic Labs | [prysmaticlabs/prysm](https://github.com/prysmaticlabs/prysm) |
+| Teku (Consensus) | Node | ConsenSys | [ConsenSys/teku](https://github.com/ConsenSys/teku) |
 
 ## EVM
 
@@ -84,6 +114,12 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Etherscan API | Verification | Etherscan | - |
 | Sourcify | Verification | Ethereum.org | [ethereum/sourcify](https://github.com/ethereum/sourcify) |
 
+## Flow
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Flow CLI | CLI | Onflow | [onflow/flow-cli](https://github.com/onflow/flow-cli) |
+
 ## General
 
 | Tool | Category | Vendor | Repo |
@@ -94,6 +130,7 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 
 | Tool | Category | Vendor | Repo |
 |---|---|---|---|
+| NEAR CLI | CLI | NEAR | [near/near-cli](https://github.com/near/near-cli) |
 | near-cli-rs | cli | near | [near/near-cli-rs](https://github.com/near/near-cli-rs) |
 | nearcore | client | near | [near/nearcore](https://github.com/near/nearcore) |
 
@@ -105,6 +142,12 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Substrate | framework | paritytech | [paritytech/substrate](https://github.com/paritytech/substrate) |
 | ink! | lang | paritytech | [paritytech/ink](https://github.com/paritytech/ink) |
 | cargo-contract | tooling | paritytech | [paritytech/cargo-contract](https://github.com/paritytech/cargo-contract) |
+
+## Polygon
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Polygon Edge | Node | Polygon Labs | [0xPolygon/polygon-edge](https://github.com/0xPolygon/polygon-edge) |
 
 ## Solana
 
@@ -131,6 +174,20 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 |---|---|---|---|
 | Sui CLI | cli | MystenLabs | [MystenLabs/sui](https://github.com/MystenLabs/sui) |
 
+## Tezos
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| LigoLang | Lang | LIGO | [ligolang/ligo](https://github.com/ligolang/ligo) |
+| SmartPy | Lang | SmartPy | [SmartPy/SmartPy](https://github.com/SmartPy/SmartPy) |
+| Octez (Tezos) | Node | Tezos | [tezos/tezos](https://github.com/tezos/tezos) |
+
+## TON
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| toncli | Dev | ton-community | [ton-community/toncli](https://github.com/ton-community/toncli) |
+
 ## Unspecified
 
 | Tool | Category | Vendor | Repo |
@@ -138,4 +195,12 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | actionlint |  |  | [rhysd/actionlint](https://github.com/rhysd/actionlint) |
 | pip-audit |  |  | [pypa/pip-audit](https://github.com/pypa/pip-audit) |
 | trufflehog |  |  | [trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog) |
+
+## ZK / general
+
+| Tool | Category | Vendor | Repo |
+|---|---|---|---|
+| Circom | ZK | iden3 | [iden3/circom](https://github.com/iden3/circom) |
+| snarkjs | ZK | iden3 | [iden3/snarkjs](https://github.com/iden3/snarkjs) |
+| ZoKrates | ZK | ZoKrates | [ZoKrates/ZoKrates](https://github.com/ZoKrates/ZoKrates) |
 
