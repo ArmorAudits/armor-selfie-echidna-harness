@@ -7,3 +7,7 @@ categories:
     labels: ['test','coverage']
   - title: '🔧 CI/CD'
     labels: ['ci']
+
+template: |
+  ## What's Changed
+  $CHANGES
