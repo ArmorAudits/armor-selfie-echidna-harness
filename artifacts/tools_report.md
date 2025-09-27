@@ -23,7 +23,7 @@
 | Etherscan API | - | - | - | no repo configured | no |
 | Foundry (forge/cast/anvil) | foundry-rs/foundry | - | - | - | no |
 | Ganache | https://github.com/trufflesuite/ganache | - | - | no longer supported (archived) | no |
-| Halmos | certora/halmos | - | - | repo not found | YES |
+| Halmos | Certora/halmos | - | - | repo not found | YES |
 | Hardhat | NomicFoundation/hardhat | - | - | - | no |
 | Manticore | trailofbits/manticore | - | - | - | no |
 | Medusa | crytic/medusa | - | - | - | no |
