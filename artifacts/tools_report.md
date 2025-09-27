@@ -30,7 +30,7 @@
 | Mythril | ConsenSys/mythril | - | - | - | no |
 | Nethermind | - | - | - | no repo configured | no |
 | OpenZeppelin Contracts | OpenZeppelin/openzeppelin-contracts | - | - | - | no |
-| OpenZeppelin Defender | OpenZeppelin/defender-cli | - | - | repo not found | YES |
+| OpenZeppelin Defender | OpenZeppelin/defender-sdk | - | - | - | no |
 | Oyente | https://github.com/melonproject/oyente | - | - | no longer supported (archived) | no |
 | Safe CLI | safe-global/safe-cli | - | - | - | no |
 | Securify | eth-sri/securify2 | - | - | - | no |

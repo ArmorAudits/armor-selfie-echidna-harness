@@ -27,7 +27,7 @@ Medusa,Fuzzer,"EVM, Base",crytic,AGPL-3.0,https://github.com/crytic/medusa,GitHu
 Mythril,Analyzer/SymExec,"EVM, Base",ConsenSys Diligence,MIT,https://github.com/ConsenSys/mythril,pip index,pip | docker,/usr/local/bin/myth,,,2025-09-24,,,Planned,2025-09-24,,,,Security,,ConsenSys/mythril,
 Nethermind,Node,"EVM, Base",Nethermind,GPL-3.0,https://github.com/NethermindEth/nethermind,GitHub releases,binary | docker,/usr/local/bin/nethermind,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,,
 OpenZeppelin Contracts,Library,"EVM, Base",OpenZeppelin,MIT,https://github.com/OpenZeppelin/openzeppelin-contracts,GitHub releases,git submodule | npm,lib/openzeppelin-contracts,,,2025-09-24,,,Adopted,2025-09-24,,,,Dev,,OpenZeppelin/openzeppelin-contracts,
-OpenZeppelin Defender,Ops,"EVM, Base",OpenZeppelin,Commercial,https://defender.openzeppelin.com/,SaaS status,CLI | API,,,,,,Planned,2025-09-24,,,,Ops,,,OpenZeppelin/defender-cli,
+OpenZeppelin Defender,Ops,"EVM, Base",OpenZeppelin,Commercial,https://defender.openzeppelin.com/,SaaS status,CLI | API,,,,,,Planned,2025-09-24,,,,Ops,,,OpenZeppelin/defender-sdk,
 Oyente,Analyzer,"EVM, Base",Melonport,MIT,https://github.com/melonproject/oyente,GitHub,pip,,,,,,Deprecated,2025-09-24,LEGACY,,,Security,,,https://github.com/melonproject/oyente,true
 Safe CLI,Ops/Multisig,"EVM, Base",Safe,GPL-3.0,https://github.com/safe-global/safe-cli,GitHub releases,pip,/usr/local/bin/safe,,,2025-09-24,,,Planned,2025-09-24,,,,Ops,,safe-global/safe-cli,
 Securify,Analyzer,"EVM, Base",ETH Zurich,AGPL-3.0,https://github.com/eth-sri/securify2,GitHub,docker,,,,,,Planned,2025-09-24,,,,Security,,,eth-sri/securify2,

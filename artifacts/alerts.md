@@ -1,9 +1,8 @@
-# Tool Monitor Alerts — 2025-09-27T04:18:59Z
+# Tool Monitor Alerts — 2025-09-27T04:20:36Z
 
 ## Quarantined
 
 - **Halmos** — repo not found
-- **OpenZeppelin Defender** — repo not found
 
 ## Allowed (archived)
 
