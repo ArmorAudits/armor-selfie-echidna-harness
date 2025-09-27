@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 import os, subprocess, datetime, pathlib
-ART = pathlib.Path("artifacts"); ART.mkdir(exist_ok=True, parents=True)
-T   = pathlib.Path("audits/templates/report.md")
+
+ART = pathlib.Path("artifacts")
+ART.mkdir(exist_ok=True, parents=True)
+T = pathlib.Path("audits/templates/report.md")
 out = ART / "audit_report_draft.md"
+
 
 def git(*args):
     try:
@@ -10,7 +13,11 @@ def git(*args):
     except Exception:
         return "N/A"
 
-data = T.read_text(encoding="utf-8") if T.exists() else """# Armor Audits — Security Review (Draft)
+
+data = (
+    T.read_text(encoding="utf-8")
+    if T.exists()
+    else """# Armor Audits — Security Review (Draft)
 
 **Project:** {{PROJECT}}
 **Commit:** {{COMMIT}}
@@ -35,7 +42,10 @@ _Use SWC mapping and include PoCs._
 ## Recommendations
 _TBD_
 """
-rep = data.replace("{{DATE}}", datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d"))
+)
+rep = data.replace(
+    "{{DATE}}", datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d")
+)
 rep = rep.replace("{{COMMIT}}", git("rev-parse", "--short", "HEAD"))
 rep = rep.replace("{{PROJECT}}", pathlib.Path(".").resolve().name)
 out.write_text(rep, encoding="utf-8")

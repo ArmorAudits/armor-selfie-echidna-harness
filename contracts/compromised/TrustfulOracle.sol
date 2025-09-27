@@ -49,7 +49,7 @@ contract TrustfulOracle is AccessControl {
         address[] memory sources,
         string[] memory symbols,
         uint256[] memory prices
-    ) 
+    )
         public
         onlyInitializer
     {
@@ -117,7 +117,7 @@ contract TrustfulOracle is AccessControl {
                     arrayOfNumbers[j] = tmp;
                 }
             }
-        }        
+        }
         return arrayOfNumbers;
     }
 }

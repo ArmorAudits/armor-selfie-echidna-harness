@@ -4,7 +4,7 @@ pragma solidity ^0.6.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20Snapshot.sol";
 
 contract DamnValuableTokenSnapshot is ERC20Snapshot {
-    
+
     uint256 private lastSnapshotId;
 
     constructor(uint256 initialSupply) public ERC20("DamnValuableToken", "DVT") {

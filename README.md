@@ -31,4 +31,3 @@
 [![Foundry Matrix](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/foundry-matrix.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/foundry-matrix.yml)
 [![CodeQL](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/codeql.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/codeql.yml)
 [![Release Evidence](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/release-evidence.yml/badge.svg)](https://github.com/ArmorAudits/armor-selfie-echidna-harness/actions/workflows/release-evidence.yml)
-

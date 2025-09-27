@@ -32,7 +32,7 @@ contract Exchange is ReentrancyGuard {
         require(amountPaidInWei >= currentPriceInWei, "Amount paid is not enough");
 
         uint256 tokenId = token.mint(msg.sender);
-        
+
         msg.sender.sendValue(amountPaidInWei - currentPriceInWei);
 
         emit TokenBought(msg.sender, tokenId, currentPriceInWei);
@@ -50,7 +50,7 @@ contract Exchange is ReentrancyGuard {
 
         token.transferFrom(msg.sender, address(this), tokenId);
         token.burn(tokenId);
-        
+
         msg.sender.sendValue(currentPriceInWei);
 
         emit TokenSold(msg.sender, tokenId, currentPriceInWei);

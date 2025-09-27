@@ -29,7 +29,7 @@ contract NaiveReceiverLenderPool is ReentrancyGuard {
             )
         );
         require(success, "External call failed");
-        
+
         require(
             address(this).balance >= balanceBefore.add(FIXED_FEE),
             "Flash loan hasn't been paid back"

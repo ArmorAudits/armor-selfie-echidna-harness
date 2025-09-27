@@ -7,7 +7,7 @@
 
 ## Allowed (archived)
 
-_These tools are upstream-archived but explicitly allowed via `monitor/tools.csv` (AllowArchived=true)._ 
+_These tools are upstream-archived but explicitly allowed via `monitor/tools.csv` (AllowArchived=true)._
 
 - **Move Prover** — no longer supported (archived)
 - **Ganache** — no longer supported (archived)

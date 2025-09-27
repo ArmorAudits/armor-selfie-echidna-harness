@@ -203,4 +203,3 @@ _Generated from `monitor/tools.csv`. Edit the CSV and re-run the audit to update
 | Circom | ZK | iden3 | [iden3/circom](https://github.com/iden3/circom) |
 | snarkjs | ZK | iden3 | [iden3/snarkjs](https://github.com/iden3/snarkjs) |
 | ZoKrates | ZK | ZoKrates | [ZoKrates/ZoKrates](https://github.com/ZoKrates/ZoKrates) |
-
