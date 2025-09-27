@@ -44,3 +44,5 @@ jobs:
         with:
           name: foundry-coverage-${{ matrix.solc }}
           path: artifacts/foundry.lcov
+
+# ci-noop-refresh

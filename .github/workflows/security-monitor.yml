@@ -106,3 +106,5 @@ jobs:
         with:
           name: weekly-checks
           path: artifacts/*
+
+# ci-noop-refresh
