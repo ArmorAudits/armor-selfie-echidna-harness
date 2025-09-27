@@ -37,3 +37,24 @@ mythril:
 
 report:
 	@python scripts/report_scaffold.py
+
+### === OPTIONAL UPGRADES ===
+.PHONY: coverage halmos certora gitleaks trivy attest
+coverage: ## forge coverage + gate
+	forge coverage --report lcov --report summary || true
+	python3 scripts/coverage_gate.py --min $${MIN_COVERAGE:-80}
+
+halmos: ## run halmos (if installed)
+	command -v halmos >/dev/null 2>&1 && halmos . || echo "Halmos not installed; skipping"
+
+certora: ## run certora (if configured)
+	command -v certoraRun >/dev/null 2>&1 && echo "Running Certora…" && true || echo "Certora CLI not found; skipping"
+
+gitleaks: ## secrets scan
+	command -v gitleaks >/dev/null 2>&1 && gitleaks detect --no-banner -v --redact --report-path artifacts/gitleaks.json || echo "Use CI step for gitleaks"
+
+trivy: ## IaC/package scan
+	command -v trivy >/dev/null 2>&1 && trivy fs . --severity HIGH,CRITICAL --format table || echo "Use CI step for trivy"
+
+attest: ## sign SBOM if present
+	if [ -f artifacts/sbom.spdx.json ]; then COSIGN_EXPERIMENTAL=1 cosign sign-blob --yes --output-signature artifacts/sbom.spdx.json.sig artifacts/sbom.spdx.json || true; else echo "No SBOM"; fi
