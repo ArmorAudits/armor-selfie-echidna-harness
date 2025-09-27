@@ -1,0 +1,41 @@
+name: Security Monitor
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Python deps for monitor
+        run: pip install -r monitor/requirements.txt
+
+      - name: Run doctor (tool inventory checks)
+        run: python monitor/doctor.py --inventory monitor/tools.csv
+
+      - name: Generate SBOM (SPDX JSON)
+        uses: anchore/sbom-action@v0
+        with:
+          path: .
+          format: spdx-json
+          output-file: artifacts/sbom.spdx.json
+
+      - name: Scan SBOM with grype (fail on High+)
+        uses: anchore/grype-action@v1
+        with:
+          sbom: artifacts/sbom.spdx.json
+          fail-on-severity: high
+
+      - name: Upload security artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-artifacts
+          path: artifacts/*
