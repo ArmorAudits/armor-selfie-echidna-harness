@@ -1,0 +1,13 @@
+name: example-invariant
+description: "No unexpected token mint above cap"
+chain: EVM
+severity: high
+condition:
+  type: event
+  signature: "Transfer(address,address,uint256)"
+  where: "to != 0x0 && totalSupply > CAP"
+response:
+  - type: webhook
+    url: https://example.com/webhook
+    method: POST
+    body: '{"alert":"cap-breached","tx":"{{txHash}}"}'

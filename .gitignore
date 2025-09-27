@@ -34,3 +34,14 @@ mcore_selfie/
 crytic-export/
 echidna_results/
 artifacts/
+# Track alert snapshots under artifacts/
+!artifacts/
+artifacts/*
+!artifacts/.gitkeep
+!artifacts/*.md
+
+# Ignore local backups & generated files
+monitor/*.bak*
+monitor/tools_norepo.csv
+# scripts/  # ← uncomment to ignore local scripts
+.envrc

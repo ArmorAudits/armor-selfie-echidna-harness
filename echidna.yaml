@@ -1,6 +1,3 @@
 testMode: assertion
-contract: SelfieHarness
-testLimit: 100000
-cryticArgs:
-  - --compile-force-framework
-  - solc
+format: text
+workers: 2
