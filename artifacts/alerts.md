@@ -1,12 +1,9 @@
-# Tool Monitor Alerts — 2025-09-27T03:35:50+00:00
+# Tool Monitor Alerts — 2025-09-27T03:49:54Z
 
 ## Quarantined
 
+- **Ganache** — repo not found
+- **Move Prover** — repo not found
+- **Oyente** — repo not found
+- **Truffle** — repo not found
 
-## Allowed (archived)
-_These tools are upstream-archived but explicitly allowed via `monitor/tools.csv` (AllowArchived=true)._ 
-
-- **Move Prover** — Upstream repo archived
-- **Ganache** — Upstream repo archived
-- **Oyente** — Upstream repo archived
-- **Truffle** — Upstream repo archived
