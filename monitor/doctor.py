@@ -192,7 +192,7 @@ def main():
             "ReplacedBy","Owner","Notes"]
     csv_path = ART/"monitor_report.csv"
     with open(csv_path,"w",newline="",encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=cols)
+        w = csv.DictWriter(f, fieldnames=cols, extrasaction='ignore')
         w.writeheader()
         for r in all_rows:
             w.writerow(r)
