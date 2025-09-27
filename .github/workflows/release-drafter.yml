@@ -1,5 +1,8 @@
 name: Release Drafter
 on:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
   push: { branches: [main] }
   workflow_dispatch:
 jobs:

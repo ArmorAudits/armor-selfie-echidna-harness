@@ -1,5 +1,8 @@
 name: Foundry Matrix
 on:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
   pull_request:
   workflow_dispatch:
   schedule:
