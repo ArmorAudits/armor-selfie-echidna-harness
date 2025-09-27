@@ -45,9 +45,9 @@
 | geth | ethereum/go-ethereum | - | - | - | no |
 | solc | ethereum/solidity | - | - | - | no |
 | solc-select | crytic/solc-select | - | - | - | no |
-| Solana CLI | solana-labs/solana | - | - | no longer supported (archived) | YES |
+| Solana CLI | solana-labs/solana | - | - | no longer supported (archived) | no |
 | Anchor (Solana) | coral-xyz/anchor | - | - | - | no |
-| SPL Token CLI | solana-labs/solana-program-library | - | - | no longer supported (archived) | YES |
+| SPL Token CLI | solana-labs/solana-program-library | - | - | no longer supported (archived) | no |
 | Aderyn (Solana static analysis) | - | - | - | no repo configured | no |
 | Cairo | starkware-libs/cairo | - | - | - | no |
 | Scarb (Cairo pkg mgr) | software-mansion/scarb | - | - | - | no |

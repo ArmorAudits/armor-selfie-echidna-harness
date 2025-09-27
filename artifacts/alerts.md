@@ -1,10 +1,8 @@
-# Tool Monitor Alerts — 2025-09-27T05:03:18Z
+# Tool Monitor Alerts — 2025-09-27T05:05:15Z
 
 ## Quarantined
 
 - **Halmos** — repo not found
-- **Solana CLI** — no longer supported (archived)
-- **SPL Token CLI** — no longer supported (archived)
 
 ## Allowed (archived)
 
@@ -14,4 +12,6 @@ _These tools are upstream-archived but explicitly allowed via `monitor/tools.csv
 - **Ganache** — no longer supported (archived)
 - **Oyente** — no longer supported (archived)
 - **Truffle** — no longer supported (archived)
+- **Solana CLI** — no longer supported (archived)
+- **SPL Token CLI** — no longer supported (archived)
 - **Substrate** — no longer supported (archived)

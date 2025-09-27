@@ -42,9 +42,9 @@ certora-cli,Formal Verification,"EVM, Base",Certora,Commercial,https://github.co
 geth,Node,"EVM, Base",Ethereum Foundation,LGPL-3.0,https://github.com/ethereum/go-ethereum,GitHub releases,brew | binary,/usr/local/bin/geth,,,2025-09-24,,,Planned,2025-09-24,,,,Infra,,ethereum/go-ethereum,,,
 solc,Compiler,"EVM, Base",Solidity,GPL-3.0,https://github.com/ethereum/solidity,GitHub releases,brew | solc-select | docker,/usr/local/bin/solc,,,2025-09-24,,,Adopted,2025-09-24,,,,Build,Use solc-select to pin versions,ethereum/solidity,,,
 solc-select,Tooling,"EVM, Base",crytic,MIT,https://github.com/crytic/solc-select,GitHub releases,pip,/usr/local/bin/solc-select,,,2025-09-24,,,Adopted,2025-09-24,,,,Build,,crytic/solc-select,,,
-Solana CLI,cli,Solana,solana-labs,,,,,,,,,,,,,,,,,ForceNotArchived to avoid false 'archived',solana-labs/solana,,,true
+Solana CLI,cli,Solana,solana-labs,,,,,,,,,,,,,,,,,ForceNotArchived to avoid false 'archived',solana-labs/solana,true,,true
 Anchor (Solana),framework,Solana,coral-xyz,,,,,,,,,,,,,,,,,,coral-xyz/anchor,,,
-SPL Token CLI,cli,Solana,solana-labs,,,,,,,,,,,,,,,,,ForceNotArchived to avoid false 'archived',solana-labs/solana-program-library,,,true
+SPL Token CLI,cli,Solana,solana-labs,,,,,,,,,,,,,,,,,ForceNotArchived to avoid false 'archived',solana-labs/solana-program-library,true,,true
 Aderyn (Solana static analysis),security,Solana,,,,,,,,,,,,,,,,,,AllowMissingRepo (fill later),,,true,
 Cairo,lang,Starknet,starkware-libs,,,,,,,,,,,,,,,,,,starkware-libs/cairo,,,
 Scarb (Cairo pkg mgr),pkg,Starknet,software-mansion,,,,,,,,,,,,,,,,,,software-mansion/scarb,,,
