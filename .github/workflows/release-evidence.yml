@@ -1,12 +1,12 @@
 name: Release Evidence
+
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag (optional; defaults to latest)"
+        description: Tag to generate evidence for (defaults to latest release)
         required: false
+
 permissions:
   contents: write
   actions: read
@@ -14,48 +14,46 @@ permissions:
 jobs:
   evidence:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
       - name: Resolve tag/prev/sha
         id: meta
+        env:
+          REPO: ${{ github.repository }}
+          TAG_INPUT: ${{ github.event.inputs.tag }}
         shell: bash
         run: |
           set -euo pipefail
-          REPO="${GITHUB_REPOSITORY}"
-          TAG_INPUT="${{ github.event.inputs.tag || '' }}"
-          if [ -n "$TAG_INPUT" ]; then
+          if [ -n "${TAG_INPUT:-}" ]; then
             TAG="$TAG_INPUT"
           else
-            TAG="${{ github.event.release.tag_name }}"
-          fi
-          if [ -z "${TAG:-}" ]; then
             TAG="$(gh release view -R "$REPO" --json tagName --jq .tagName)"
           fi
-          PREV="$(gh api repos/$REPO/releases --paginate --jq '[.[]|select(.draft==false)]|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
-          SHA="$(gh api repos/$REPO/git/ref/tags/$TAG --jq .object.sha)"
+          PREV="$(gh api repos/$REPO/releases \
+            --jq 'map(select(.draft==false))|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
+          # Resolve the commit SHA behind the tag (handles annotated tags)
+          SHA="$(gh api repos/$REPO/commits/$TAG --jq .sha)"
           echo "tag=$TAG"  >> "$GITHUB_OUTPUT"
           echo "prev=$PREV" >> "$GITHUB_OUTPUT"
           echo "sha=$SHA"  >> "$GITHUB_OUTPUT"
 
       - name: Generate evidence
         id: gen
+        env:
+          REPO: ${{ github.repository }}
+          TAG:  ${{ steps.meta.outputs.tag }}
+          PREV: ${{ steps.meta.outputs.prev }}
+          SHA:  ${{ steps.meta.outputs.sha }}
         shell: bash
         run: |
           set -euo pipefail
-          REPO="${GITHUB_REPOSITORY}"
-          TAG="${{ steps.meta.outputs.tag }}"
-          PREV="${{ steps.meta.outputs.prev }}"
-          SHA="${{ steps.meta.outputs.sha }}"
           OUT="release-evidence-$TAG.md"
 
-          # Pull core release fields via gh release view (robust by tag, no 404s)
           gh release view "$TAG" -R "$REPO" \
-            --json name,tagName,publishedAt,author,url \
-            > /tmp/release.json
+            --json name,tagName,publishedAt,author,url > /tmp/release.json
 
           {
             echo "# Release Evidence for $TAG"
