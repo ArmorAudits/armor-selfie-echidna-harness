@@ -46,7 +46,7 @@ jobs:
           SHA="${{ steps.meta.outputs.sha }}"
           OUT="release-evidence-$TAG.md"
 
-          # robust release lookup (avoid /releases/tags/{tag} 404)
+          # Robust release lookup: get release ID by tag (avoids /releases/tags/{tag} 404)
           REL_ID="$(gh api repos/$REPO/releases --paginate --jq '.[] | select(.tag_name=="'"$TAG"'") | .id' | head -n1)"
 
           {
