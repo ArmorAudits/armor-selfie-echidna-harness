@@ -32,9 +32,9 @@ jobs:
           else
             TAG="$(gh release view -R "$REPO" --json tagName --jq .tagName)"
           fi
-          PREV="$(gh api repos/$REPO/releases \
-            --jq 'map(select(.draft==false))|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
-          # Resolve the commit SHA behind the tag (handles annotated tags)
+          PREV="$(gh api repos/$REPO/releases --paginate \
+            --jq '[.[]|select(.draft==false)]|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
+          # IMPORTANT: resolve the *commit* SHA behind the tag (works for annotated & lightweight)
           SHA="$(gh api repos/$REPO/commits/$TAG --jq .sha)"
           echo "tag=$TAG"  >> "$GITHUB_OUTPUT"
           echo "prev=$PREV" >> "$GITHUB_OUTPUT"
@@ -52,6 +52,7 @@ jobs:
           set -euo pipefail
           OUT="release-evidence-$TAG.md"
 
+          # Pull core release fields via gh release view (robust by tag)
           gh release view "$TAG" -R "$REPO" \
             --json name,tagName,publishedAt,author,url > /tmp/release.json
 
@@ -74,8 +75,16 @@ jobs:
             fi
             echo
             echo "## Workflow runs for $TAG"
-            gh api "repos/$REPO/actions/runs" -f head_sha="$SHA" \
-              --jq '.workflow_runs[] | "* \(.name) • conclusion: \(.conclusion // .status) • run_id=\(.id)"'
+            # Use CLI list (more reliable than raw REST here); filter by headSha == commit SHA
+            RUNS="$(gh run list -R "$REPO" --limit 100 \
+                    --json name,conclusion,status,headSha,databaseId \
+                  | jq -r --arg SHA "$SHA" \
+                      '.[] | select(.headSha==$SHA) | "* \(.name) • conclusion: \(.conclusion // .status) • run_id=\(.databaseId)"')"
+            if [ -n "$RUNS" ]; then
+              echo "$RUNS"
+            else
+              echo "* No matching workflow runs for commit $SHA"
+            fi
           } > "$OUT"
 
           echo "out=$OUT" >> "$GITHUB_OUTPUT"
