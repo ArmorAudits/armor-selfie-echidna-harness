@@ -7,6 +7,7 @@ on:
       tag:
         description: "Release tag (optional; defaults to latest)"
         required: false
+
 permissions:
   contents: write
   actions: read
@@ -26,19 +27,18 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          REPO="${GITHUB_REPOSITORY}"
           TAG_INPUT="${{ github.event.inputs.tag || '' }}"
           if [ -n "$TAG_INPUT" ]; then
             TAG="$TAG_INPUT"
           else
             TAG="${{ github.event.release.tag_name }}"
-            if [ -z "$TAG" ]; then
-              TAG="$(gh release view --json tagName --jq .tagName)"
-            fi
           fi
-          PREV="$(gh api repos/${{ github.repository }}/releases \
-            --jq 'map(select(.draft==false))|sort_by(.created_at)|reverse|.[1].tag_name' || true)"
-          [ "${PREV:-}" = "null" ] && PREV="$TAG"
-          SHA="$(gh api repos/${{ github.repository }}/git/ref/tags/$TAG --jq .object.sha)"
+          if [ -z "${TAG:-}" ]; then
+            TAG="$(gh release view -R "$REPO" --json tagName --jq .tagName)"
+          fi
+          PREV="$(gh api repos/$REPO/releases --jq 'map(select(.draft==false))|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
+          SHA="$(gh api repos/$REPO/git/ref/tags/$TAG --jq .object.sha)"
           {
             echo "tag=$TAG"
             echo "prev=$PREV"
@@ -50,33 +50,35 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          REPO="${GITHUB_REPOSITORY}"
           TAG="${{ steps.meta.outputs.tag }}"
           PREV="${{ steps.meta.outputs.prev }}"
           SHA="${{ steps.meta.outputs.sha }}"
-          OUT="release-evidence-$TAG.md"
+          OUT="release-evidence-${TAG}.md"
           {
             echo "# Release Evidence for $TAG"
             echo
-            gh api repos/${GITHUB_REPOSITORY}/releases/tags/$TAG \
+            gh api repos/$REPO/releases/tags/$TAG \
               --jq '{name:.name, tag:.tag_name, published_at, author:.author.login, html_url}' \
             | jq -r 'to_entries[] | "* \(.key): \(.value)"'
             echo
-            if [ "$PREV" != "$TAG" ]; then
+            if [ -n "$PREV" ] && [ "$PREV" != "$TAG" ]; then
               echo "## Commits since $PREV"
-              gh api repos/${GITHUB_REPOSITORY}/compare/$PREV...$TAG \
+              gh api repos/$REPO/compare/$PREV...$TAG \
                 --jq '.commits[] | "* \(.sha[0:7]) \(.commit.author.date) - \(.commit.message|split("\n")[0]) by \(.commit.author.name)"'
             else
               echo "## Commits"
-              git log -n 20 --pretty="* %h %ad - %s by %an" || true
+              gh api repos/$REPO/commits \
+                --jq '.[0:20][] | "* \(.sha[0:7]) - \(.commit.message|split("\n")[0]) by \(.commit.author.name) on \(.commit.author.date)"' || true
             fi
             echo
             echo "## Workflow runs for $TAG"
-            gh api repos/${GITHUB_REPOSITORY}/actions/runs -f head_sha="$SHA" \
+            gh api repos/$REPO/actions/runs -f head_sha="$SHA" \
               --jq '.workflow_runs[] | "* \(.name) • conclusion: \(.conclusion // .status) • run_id=\(.id)"'
           } > "$OUT"
           echo "out=$OUT" >> "$GITHUB_OUTPUT"
 
-      - name: Upload to release
+      - name: Upload evidence to release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.meta.outputs.tag }}
