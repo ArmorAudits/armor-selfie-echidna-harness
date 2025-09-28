@@ -7,7 +7,6 @@ on:
       tag:
         description: "Release tag (optional; defaults to latest)"
         required: false
-
 permissions:
   contents: write
   actions: read
@@ -19,8 +18,7 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        with: { fetch-depth: 0 }
 
       - name: Resolve tag/prev/sha
         id: meta
@@ -39,13 +37,11 @@ jobs:
           fi
           PREV="$(gh api repos/$REPO/releases --jq 'map(select(.draft==false))|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
           SHA="$(gh api repos/$REPO/git/ref/tags/$TAG --jq .object.sha)"
-          {
-            echo "tag=$TAG"
-            echo "prev=$PREV"
-            echo "sha=$SHA"
-          } >> "$GITHUB_OUTPUT"
+          echo "tag=$TAG"  >> "$GITHUB_OUTPUT"
+          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
+          echo "sha=$SHA"  >> "$GITHUB_OUTPUT"
 
-      - name: Generate evidence markdown
+      - name: Generate evidence
         id: gen
         shell: bash
         run: |
@@ -54,7 +50,7 @@ jobs:
           TAG="${{ steps.meta.outputs.tag }}"
           PREV="${{ steps.meta.outputs.prev }}"
           SHA="${{ steps.meta.outputs.sha }}"
-          OUT="release-evidence-${TAG}.md"
+          OUT="release-evidence-$TAG.md"
           {
             echo "# Release Evidence for $TAG"
             echo
