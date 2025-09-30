@@ -1,1 +1,136 @@
-# …your YAML…
+name: Release Evidence
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag (e.g., v0.1.4). If empty, uses latest release.
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    env:
+      REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve tag/prev/sha
+        id: meta
+        shell: bash
+        env:
+          REPO: ${{ env.REPO }}
+          TAG_INPUT: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if [ -n "${TAG_INPUT:-}" ]; then
+            TAG="$TAG_INPUT"
+          else
+            TAG="$(gh release view -R "$REPO" --json tagName --jq .tagName)"
+          fi
+          PREV="$(gh api repos/$REPO/releases --paginate \
+            --jq '[.[]|select(.draft==false)]|sort_by(.created_at)|reverse|.[1].tag_name // ""')"
+          SHA="$(gh api repos/$REPO/commits/$TAG --jq .sha)"
+          echo "tag=$TAG"  >> "$GITHUB_OUTPUT"
+          echo "prev=$PREV" >> "$GITHUB_OUTPUT"
+          echo "sha=$SHA"  >> "$GITHUB_OUTPUT"
+
+      - name: Generate evidence
+        id: gen
+        shell: bash
+        env:
+          REPO: ${{ env.REPO }}
+          TAG: ${{ steps.meta.outputs.tag }}
+          PREV: ${{ steps.meta.outputs.prev }}
+          SHA: ${{ steps.meta.outputs.sha }}
+          GH_TOKEN: ${{ env.GH_TOKEN }}
+        run: |
+          set -euo pipefail
+          OUT="release-evidence-$TAG.md"
+
+          gh release view "$TAG" -R "$REPO" \
+            --json name,tagName,publishedAt,author,url,targetCommitish,assets \
+            > /tmp/release.json
+
+          SHAS=""
+          SHAS+="$SHA"$'\n'
+          [ -n "${GITHUB_SHA:-}" ] && SHAS+="$GITHUB_SHA"$'\n'
+          TGT="$(jq -r '.targetCommitish // empty' /tmp/release.json || true)"
+          if [ -n "$TGT" ]; then
+            TGT_SHA="$(gh api "repos/$REPO/commits/$TGT" --jq .sha || true)"
+            [ -n "$TGT_SHA" ] && SHAS+="$TGT_SHA"$'\n'
+          fi
+          REL_RUN_SHAS="$(gh run list -R "$REPO" --limit 100 --json headSha,event,displayTitle \
+                            | jq -r --arg TAG "$TAG" \
+                                 '.[] | select(.event=="release" and (.displayTitle|tostring|test($TAG))) | .headSha' || true)"
+          [ -n "${REL_RUN_SHAS:-}" ] && SHAS+="$REL_RUN_SHAS"$'\n'
+          SHAS_JSON="$(printf "%s" "$SHAS" | jq -R -s 'split("\n")|map(select(length>0))|unique')"
+
+          {
+            echo "# Release Evidence for $TAG"
+            echo
+            jq -r '{name:.name, tag:.tagName, published_at:.publishedAt, author:.author.login, html_url:.url}
+                    | to_entries[] | "* \(.key): \(.value)"' /tmp/release.json
+
+            echo
+            if [ -n "${PREV:-}" ] && [ "$PREV" != "$TAG" ]; then
+              echo "## Commits since $PREV"
+              gh api "repos/$REPO/compare/$PREV...$TAG" \
+                --jq '.commits[] | "* \(.sha[0:7]) \(.commit.author.date) - \(.commit.message|split("\n")[0]) by \(.commit.author.name)"'
+            else
+              echo "## Commits"
+              gh api "repos/$REPO/commits" \
+                --jq '.[0:20][] | "* \(.sha[0:7]) - \(.commit.message|split("\n")[0]) by \(.commit.author.name) on \(.commit.author.date)"' || true
+            fi
+
+            echo
+            echo "## Workflow runs related to $TAG"
+            MATCHED="$(
+              gh run list -R "$REPO" --limit 200 \
+                --json name,conclusion,status,headSha,databaseId,headBranch,event,displayTitle \
+              | jq -r --argjson SHAS "$SHAS_JSON" --arg REPO "$REPO" '
+                  .[]
+                  | select(.headSha as $s | $SHAS | index($s))
+                  | "* \(.name) • event:\(.event) • branch:\(.headBranch) • conclusion: \(.conclusion // .status) • run_id=\(.databaseId) • https://github.com/\($REPO)/actions/runs/\(.databaseId)"'
+            )"
+            if [ -n "$MATCHED" ]; then
+              echo "$MATCHED"
+            else
+              echo "* No related workflow runs found for SHAs: $(printf "%s" "$SHAS_JSON")"
+            fi
+
+            echo
+            echo "## Release assets"
+            jq -r '.assets[]? | "* \(.name) • size:\(.size) • downloads:\(.download_count // 0)"' /tmp/release.json
+
+            if SINCE="$(gh release view "$PREV" -R "$REPO" --json publishedAt --jq .publishedAt 2>/dev/null || true)"; then
+              if [ -n "$SINCE" ]; then
+                echo
+                echo "## PRs merged since $PREV"
+                gh pr list -R "$REPO" -s merged -L 100 \
+                  --search "merged:>=$SINCE" \
+                  --json number,title,mergedAt,author,url \
+                | jq -r '.[] | "* #\(.number) - \(.title) by @\(.author.login) on \(.mergedAt) • \(.url)"'
+              fi
+            fi
+          } > "$OUT"
+
+          echo "out=$OUT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload evidence to release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.meta.outputs.tag }}
+          files: ${{ steps.gen.outputs.out }}
+          overwrite_files: true
