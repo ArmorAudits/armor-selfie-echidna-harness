@@ -44,7 +44,7 @@ jobs:
           path: artifacts/slither.json
       - name: Upload SARIF to Code Scanning
         if: always()
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: artifacts/slither.sarif
 
