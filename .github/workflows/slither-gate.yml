@@ -38,7 +38,7 @@ jobs:
           exit ${EXIT:-0}
       - name: Upload Slither JSON
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: slither-json
           path: artifacts/slither.json

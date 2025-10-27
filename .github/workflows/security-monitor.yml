@@ -61,7 +61,7 @@ jobs:
           sed -n '1,120p' artifacts/tools_report.md || true
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: security-artifacts
           path: artifacts/*
@@ -106,7 +106,7 @@ jobs:
           sed -n '1,60p' artifacts/alerts.md
 
       - name: Upload weekly artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: weekly-checks
           path: artifacts/*
